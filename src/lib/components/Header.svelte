@@ -1,4 +1,5 @@
 <script>
+	import { base } from '$app/paths';
 	import { motion } from '$lib/stores/motion.svelte.js';
 	import { stops } from '$lib/stores/stops.svelte.js';
 </script>
@@ -7,6 +8,7 @@
 	<button class="brand" onclick={() => stops.toTop()}>Four Years Left</button>
 
 	<nav>
+		<a class="quiz-link" href="{base}/quiz/results">Quiz</a>
 		<button
 			class="link"
 			onclick={() => motion.toggle()}
@@ -38,6 +40,7 @@
 		font-family: var(--font-display);
 		font-weight: 800;
 		font-size: var(--text-body);
+		white-space: nowrap;
 		color: var(--color-navy);
 		background: none;
 		border: 0;
@@ -63,6 +66,40 @@
 
 	.link:hover {
 		color: var(--color-link);
+	}
+
+	/* The way into the quiz from anywhere in the story, so the opening act is
+	   never more than one click away during Q&A. */
+	.quiz-link {
+		font-size: var(--text-micro);
+		font-weight: 700;
+		color: var(--color-navy);
+		text-decoration: none;
+		border: 1px solid var(--color-rule);
+		border-radius: 999px;
+		padding: 5px 14px;
+	}
+
+	.quiz-link:hover {
+		border-color: var(--color-un-blue);
+		color: var(--color-link);
+	}
+
+	/* On a phone the bar has room for the title and one destination. The About
+	   link is an anchor into the endmatter, which scrolling reaches anyway. */
+	@media (max-width: 620px) {
+		header {
+			gap: 10px;
+			padding-inline: 14px;
+		}
+
+		nav {
+			gap: 12px;
+		}
+
+		nav :global(a[href$='#about']) {
+			display: none;
+		}
 	}
 
 	@media print {

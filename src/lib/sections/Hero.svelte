@@ -35,10 +35,25 @@
 
 		/** Beeswarm targets: x by score, y dodged so nothing overlaps. */
 		function layout() {
-			const padX = Math.max(70, box.w * 0.09);
-			const x = scaleLinear().domain([0, 100]).range([padX, box.w - padX]);
-			const cy = box.h * 0.52;
-			const r = 6;
+			// Once the data is revealed the swarm is a chart, not a backdrop, so it
+			// clears the text: on a wide screen it starts to the right of the
+			// narrowed title column, on a narrow one it drops below the copy.
+			// Otherwise every country under about 45 hides behind the headline,
+			// which is exactly the end of the scale worth pointing at.
+			const wide = box.w >= 900;
+			const padR = revealed && !wide ? 40 : Math.max(70, box.w * 0.05);
+			const x0 = revealed
+				? wide
+					? Math.max(box.w * 0.44, 460)
+					: 40
+				: Math.max(70, box.w * 0.09);
+			const x1 = box.w - padR;
+			const x = scaleLinear().domain([0, 100]).range([x0, x1]);
+			const cy = revealed && !wide ? box.h * 0.62 : box.h * 0.52;
+			// A phone gives the swarm a third of the width, so the dots shrink or
+			// the dodge stacks them into a tower taller than the screen.
+			const rad = wide ? 5.5 : 3.4;
+			const r = rad + 0.5;
 			const sorted = [...parts].sort((a, b) => a.score - b.score);
 			/** @type {number[][]} occupied y bands per particle, greedy dodge */
 			const placed = [];
@@ -57,10 +72,11 @@
 				}
 				p.tx = px;
 				p.ty = py;
+				p.r = rad;
 				placed.push({ x: px, y: py });
 			}
 			// Axis geometry for the reveal state.
-			axis = { x, y: cy, padX };
+			axis = { x, y: cy, x0, x1 };
 		}
 
 		let axis = null;
@@ -89,8 +105,8 @@
 				ctx.strokeStyle = 'rgba(255,255,255,0.28)';
 				ctx.lineWidth = 1;
 				ctx.beginPath();
-				ctx.moveTo(axis.padX - 20, axis.y + 132);
-				ctx.lineTo(box.w - axis.padX + 20, axis.y + 132);
+				ctx.moveTo(axis.x0 - 20, axis.y + 132);
+				ctx.lineTo(axis.x1 + 20, axis.y + 132);
 				ctx.stroke();
 				ctx.fillStyle = 'rgba(255,255,255,0.72)';
 				ctx.font = '16px Inter, system-ui, sans-serif';
@@ -103,7 +119,7 @@
 					ctx.stroke();
 					ctx.fillText(String(t), tx, axis.y + 160);
 				}
-				ctx.fillText('SDG Index score, 0 to 100', box.w / 2, axis.y + 190);
+				ctx.fillText('SDG Index score, 0 to 100', (axis.x0 + axis.x1) / 2, axis.y + 190);
 			}
 
 			for (const p of parts) {
@@ -132,21 +148,35 @@
 			// call out the two extremes once the swarm has settled
 			if (revealed) {
 				ctx.font = '700 16px Inter, system-ui, sans-serif';
-				// Labels point away from the swarm: the leader sits at the far right
-				// and the last country at the far left, so neither covers data.
-				for (const [who, align] of [
-					[best, 'left'],
-					[worst, 'right']
-				]) {
-					const p = parts.find((q) => q.name === who.name);
-					if (!p) continue;
-					ctx.fillStyle = '#fff';
-					ctx.textAlign = align;
-					ctx.fillText(
-						`${who.name} ${fmt1(who.score)}`,
-						p.x + (align === 'right' ? -12 : 12),
-						p.y + 5
-					);
+				ctx.fillStyle = '#fff';
+
+				// The leader sits at the far right with empty margin beside it, so its
+				// label points outward. The last country sits at the start of the axis
+				// with the title column beyond it, so its label goes above the dot
+				// rather than reaching back into the text.
+				// Centered labels are clamped to the canvas so a name never runs off
+				// the edge of a phone screen.
+				const centered = (text, x, y) => {
+					const half = ctx.measureText(text).width / 2 + 8;
+					ctx.textAlign = 'center';
+					ctx.fillText(text, Math.max(half, Math.min(box.w - half, x)), y);
+				};
+
+				const roomForSideLabel = box.w >= 900;
+				const pBest = parts.find((q) => q.name === best.name);
+				if (pBest) {
+					const text = `${best.name} ${fmt1(best.score)}`;
+					if (roomForSideLabel) {
+						ctx.textAlign = 'left';
+						ctx.fillText(text, pBest.x + 12, pBest.y + 5);
+					} else {
+						centered(text, pBest.x, pBest.y + 24);
+					}
+				}
+
+				const pWorst = parts.find((q) => q.name === worst.name);
+				if (pWorst) {
+					centered(`${worst.name} ${fmt1(worst.score)}`, pWorst.x, pWorst.y - 16);
 				}
 			}
 
@@ -156,13 +186,23 @@
 		init();
 		resize();
 		frame();
+		relayout = layout;
 		const ro = new ResizeObserver(resize);
 		ro.observe(canvas.parentElement);
 
 		return () => {
 			cancelAnimationFrame(raf);
+			relayout = null;
 			ro.disconnect();
 		};
+	});
+
+	// Revealing changes where the swarm belongs, not just how it moves, so the
+	// targets are recomputed on the toggle as well as on resize.
+	let relayout = $state(null);
+	$effect(() => {
+		revealed;
+		relayout?.();
 	});
 </script>
 
@@ -234,12 +274,15 @@
 		z-index: 2;
 		padding: clamp(32px, 6vw, 96px);
 		max-width: 900px;
-		transition: transform 700ms ease;
+		transition:
+			transform 700ms ease,
+			max-width 700ms ease;
 	}
 
-	/* When the swarm appears, the text steps aside so the chart is unobstructed. */
+	/* When the swarm appears the text column narrows and the chart takes the
+	   space to its right, so no country sits behind the headline. */
 	.pushed {
-		transform: translateY(-16vh);
+		max-width: min(560px, 32vw);
 	}
 
 	.kicker {
@@ -326,8 +369,29 @@
 	}
 
 	@media (max-width: 900px) {
+		/* No room for a column beside the chart. The text keeps its full width and
+		   the prose stands down while the chart is up, since a phone screen cannot
+		   hold both and a swarm behind a paragraph is worse than either alone.
+		   The toggle brings every word straight back. */
 		.pushed {
-			transform: none;
+			max-width: none;
+		}
+
+		.pushed .standfirst,
+		.pushed .hint,
+		.pushed .byline {
+			display: none;
+		}
+
+		/* Title to the top, chart below it, rather than both fighting for the
+		   middle of the screen. */
+		.hero:has(.pushed) {
+			align-items: flex-start;
+		}
+
+		/* Clear the sticky header, which would otherwise sit on the kicker. */
+		.pushed {
+			padding-top: calc(var(--header-h) + 18px);
 		}
 	}
 </style>
