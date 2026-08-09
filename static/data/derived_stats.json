@@ -1,0 +1,46 @@
+{
+ "ranked_countries": 169,
+ "world_2000": 59.03,
+ "world_2015": 65.03,
+ "world_2025": 68.96,
+ "pace_2015_2019": 0.515,
+ "pace_2019_2025": 0.312,
+ "gain_last_year": 0.02,
+ "projection_2030": 70.5,
+ "pct_dash": {
+  "red": 39.9,
+  "orange": 31.6,
+  "yellow": 17.9,
+  "green": 6.9,
+  "grey": 3.8
+ },
+ "pct_trend": {
+  "flat": 49.1,
+  "mod": 37.3,
+  "down": 7.3,
+  "up": 6.2
+ },
+ "goal_delta_2015_2025": {
+  "goal1": 7.7,
+  "goal2": -0.5,
+  "goal3": 4.1,
+  "goal4": 4.2,
+  "goal5": 6.1,
+  "goal6": 2.9,
+  "goal7": 4.8,
+  "goal8": 4.0,
+  "goal9": 18.4,
+  "goal10": 7.0,
+  "goal11": 1.6,
+  "goal12": 1.3,
+  "goal13": -0.0,
+  "goal14": 4.0,
+  "goal15": 1.8,
+  "goal16": -3.3,
+  "goal17": 1.3
+ },
+ "sdg16_decliners": 152,
+ "sdg16_total": 205,
+ "poverty_2000": 32.0,
+ "poverty_latest": 9.3
+}

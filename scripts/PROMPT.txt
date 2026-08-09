@@ -1,0 +1,59 @@
+You are building a scrollytelling presentation website that I will present live at
+United Nations Headquarters TOMORROW at 12:30 to students from Emory, NYU and Columbia.
+There is no second day. Perfection within the triage beats completeness.
+
+THE KIT (everything is in this directory):
+- PLAN.md ... the complete specification. Read it fully, end to end, before any code.
+  Part A is the talk. Part B is what you build: section specs, design system,
+  presentation layer, country comparison system, Atlas fidelity audit, and the
+  one day schedule with must/should/could triage.
+- CLAUDE.md ... standing conventions for this repo. Follow them in every file you write.
+- data/ ........ eight verified JSON files, the complete dataset. Do not regenerate,
+  do not modify, treat as read only truth. Copy to static/data/.
+- static-assets/countries-110m.json and name_map.json ... world map TopoJSON and the
+  SDR to TopoJSON country name mapping for the choropleth. Copy into static/.
+- prepare_data.py ... how the JSON was made, for reference only.
+- .github/workflows/deploy.yml ... ready Pages workflow, use as is.
+
+THE JOB, in this exact order, pausing after each numbered step so I can review in the browser:
+
+1. Scaffold: SvelteKit + Svelte 5 + adapter-static + Tailwind. Repo name four-years-left,
+   base path from BASE_PATH env with '/four-years-left' fallback, prerender everything,
+   self host fonts (Baloo 2 display, Inter body), design tokens from PLAN.md, copy the kit
+   assets into place, commit the deploy workflow, and give me the exact commands to create
+   the GitHub repo and turn on Pages. A placeholder page must deploy successfully before
+   anything else is built.
+2. Key facts strip rendered entirely from data (derived_stats.json), proving the pipe.
+3. The scrolly engine: Scroller wrapper, CaptionCard, and Section 4 (the stall) complete,
+   including reduced motion fallback and the pace colored world index line. This is the
+   pattern every other scrolly copies, so make it clean.
+4. Section 5, the report card waffle (2873 cells, sort by color on scroll).
+5. Section 6, seventeen goals scrolly with the small multiples grid state and the
+   SDG 9 / SDG 2 / SDG 16 spotlight steps.
+6. Section 7, the choropleth world map (equal earth, d3-geo, five step blue ramp,
+   crossfade into regional lines). Microstates without polygons: small circles or omit.
+7. Sections 8, 9, 10: portraits arrow chart, Finland composition, projection cone.
+8. Section 1 hero: navy, 169 particle beeswarm on canvas, the reveal data toggle
+   (crossfade acceptable), plus Sections 2 and 3 with the poverty guess as a
+   three button vote. Then Section 11, the explorer (search, chips, goal tiles,
+   trend line vs region), and Section 12 endmatter with the CC BY NC ND attribution
+   to Fuller, Iablonovski, Lafortune and Sachs, SDR 2026.
+9. The comparison system: global store, Compare pill with type ahead, max 3 countries,
+   slot colors #8E44AD #00A6A6 #D81B60, URL hash #compare=..., overlays on the stall
+   chart, regions chart, arrow chart, and explorer columns, quick add chips for
+   United States, Bangladesh, India, China, Nigeria, Brazil.
+10. The presentation layer: ordered stops, arrow/space/pgdn advance, digits jump to
+    scenes, F fullscreen, B blank, Home to top, progress rail of nine dots, and a
+    final pass: npm run build clean, zero console errors, works offline from preview,
+    Lighthouse accessibility above 90, every number on screen matches derived_stats.json.
+
+RULES THAT OUTRANK EVERYTHING:
+- If any scrolly fights you for more than 30 minutes, build the click through fallback
+  (next/back buttons on the caption card driving the same state index) and move on.
+- Nothing below 14px ever renders. Body 20px, captions 22px, chart ticks 16px minimum.
+- No external requests at runtime. If you reach for a CDN, stop and self host.
+- Captions carry the legend as color highlighted words. No legend boxes exist anywhere.
+- When in doubt about any visual decision, PLAN.md's Atlas fidelity audit is the tiebreaker:
+  do what the World Bank Atlas does.
+
+Start now with step 1. After it deploys, stop and show me.

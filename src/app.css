@@ -1,0 +1,205 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   Design tokens. Single source of truth, PLAN.md Design system.
+   ============================================================ */
+@theme {
+	/* --- Structure ------------------------------------------------ */
+	--color-navy: #0b1b3f; /* Atlas dark navy: hero + endmatter */
+	--color-navy-700: #16294f;
+	--color-navy-500: #2b3f66;
+	--color-un-blue: #009edb; /* site accent, structure only */
+	--color-ink: #16202e; /* body text on white */
+	--color-ink-muted: #5b6675; /* subtitles, source lines */
+	--color-rule: #d8dee7; /* hairlines, gridlines */
+	--color-paper: #ffffff;
+	--color-paper-alt: #f4f6f9; /* section bands */
+
+	/* --- Dashboard scale (database legend) ------------------------ */
+	--color-dash-green: #2ea043;
+	--color-dash-yellow: #f5c518;
+	--color-dash-orange: #f58220;
+	--color-dash-red: #d64545;
+	--color-dash-grey: #b0b7c3;
+
+	/* --- Pace coding for the stall chart -------------------------- */
+	--color-pace-fast: #009edb;
+	--color-pace-slow: #f5c518;
+	--color-pace-flat: #d64545;
+
+	/* --- Comparison slots (clash with nothing above) -------------- */
+	--color-slot-1: #8e44ad;
+	--color-slot-2: #00a6a6;
+	--color-slot-3: #d81b60;
+
+	/* --- Official UN SDG goal palette ----------------------------- */
+	--color-sdg-1: #e5243b;
+	--color-sdg-2: #dda63a;
+	--color-sdg-3: #4c9f38;
+	--color-sdg-4: #c5192d;
+	--color-sdg-5: #ff3a21;
+	--color-sdg-6: #26bde2;
+	--color-sdg-7: #fcc30b;
+	--color-sdg-8: #a21942;
+	--color-sdg-9: #fd6925;
+	--color-sdg-10: #dd1367;
+	--color-sdg-11: #fd9d24;
+	--color-sdg-12: #bf8b2e;
+	--color-sdg-13: #3f7e44;
+	--color-sdg-14: #0a97d9;
+	--color-sdg-15: #56c02b;
+	--color-sdg-16: #00689d;
+	--color-sdg-17: #19486a;
+
+	/* --- Type ----------------------------------------------------- */
+	--font-display: 'Baloo 2', ui-rounded, 'Trebuchet MS', system-ui, sans-serif;
+	--font-body: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+	/* Projection minimums: nothing below 14px ever renders. */
+	--text-micro: 14px; /* absolute floor, source lines only */
+	--text-tick: 16px; /* chart tick labels, floor */
+	--text-small: 17px;
+	--text-body: 20px; /* body copy floor */
+	--text-lede: 24px;
+	--text-caption: 22px; /* scrolly caption cards */
+	--text-h3: 30px;
+	--text-h2: 44px;
+	--text-h1: 72px;
+	--text-hero: 104px;
+	--text-mega: 180px; /* headline numbers */
+
+	/* --- Layout --------------------------------------------------- */
+	--container-reading: 65ch;
+}
+
+/* The one token that needed a real value, kept out of the block above
+   so a typo can never silently ship a broken color. */
+:root {
+	--color-navy-500: #2b3f66;
+	--reading-measure: 65ch;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+@layer base {
+	html {
+		scroll-behavior: smooth;
+		-webkit-text-size-adjust: 100%;
+		text-size-adjust: 100%;
+	}
+
+	body {
+		font-family: var(--font-body);
+		font-size: var(--text-body);
+		line-height: 1.6;
+		color: var(--color-ink);
+		background: var(--color-paper);
+		font-feature-settings: 'tnum' 0;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	h1,
+	h2,
+	h3,
+	.display {
+		font-family: var(--font-display);
+		font-weight: 800;
+		line-height: 1.05;
+		letter-spacing: -0.01em;
+	}
+
+	/* Every number that is meant to be read as a number lines up. */
+	.tabular {
+		font-variant-numeric: tabular-nums;
+		font-feature-settings: 'tnum' 1;
+	}
+
+	:focus-visible {
+		outline: 3px solid var(--color-un-blue);
+		outline-offset: 2px;
+	}
+
+	::selection {
+		background: color-mix(in srgb, var(--color-un-blue) 30%, transparent);
+	}
+}
+
+/* ============================================================
+   Reusable furniture
+   ============================================================ */
+@layer components {
+	/* Single centered reading column, ~65 characters. */
+	.reading {
+		width: 100%;
+		max-width: var(--reading-measure);
+		margin-inline: auto;
+		padding-inline: 24px;
+	}
+
+	/* Atlas chart furniture: finding as title, units as subtitle,
+	   thin accent rule, linked source line. */
+	.chart-title {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--text-h3);
+		line-height: 1.15;
+		color: var(--color-ink);
+		margin: 0;
+	}
+
+	.chart-subtitle {
+		font-size: var(--text-small);
+		color: var(--color-ink-muted);
+		margin: 6px 0 0;
+	}
+
+	.chart-rule {
+		height: 3px;
+		width: 64px;
+		background: var(--color-un-blue);
+		border: 0;
+		margin: 14px 0 18px;
+	}
+
+	.chart-source {
+		font-size: var(--text-micro);
+		color: var(--color-ink-muted);
+		margin-top: 12px;
+	}
+
+	.chart-source a {
+		color: var(--color-ink-muted);
+		text-decoration: underline;
+		text-underline-offset: 2px;
+	}
+}
+
+/* ============================================================
+   Reduced motion. Manual toggle sets data-reduced-motion on <html>;
+   the media query honors the OS preference. Fallback is always a
+   crossfade, never removal of content.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+	html:not([data-reduced-motion='off']) {
+		scroll-behavior: auto;
+	}
+	html:not([data-reduced-motion='off']) *,
+	html:not([data-reduced-motion='off']) *::before,
+	html:not([data-reduced-motion='off']) *::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 150ms !important;
+	}
+}
+
+html[data-reduced-motion='on'] {
+	scroll-behavior: auto;
+}
+html[data-reduced-motion='on'] *,
+html[data-reduced-motion='on'] *::before,
+html[data-reduced-motion='on'] *::after {
+	animation-duration: 0.01ms !important;
+	animation-iteration-count: 1 !important;
+	transition-duration: 150ms !important;
+}
