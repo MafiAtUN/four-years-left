@@ -1,0 +1,50 @@
+{
+  "meta": {
+    "title": "Before we start: five questions",
+    "subtitle": "No Google, no ChatGPT, just your best guess. Completely anonymous.",
+    "chimp_note": "A chimpanzee picking answers at random scores 33 percent. Hans Rosling spent a career showing that educated audiences score worse than the chimps on these questions, because our picture of the world is decades out of date.",
+    "options_per_question": 3
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "text": "In the last 25 years, the share of the world's population living in extreme poverty has...",
+      "options": ["Almost doubled", "Stayed about the same", "Fallen by more than two thirds"],
+      "correct": 2,
+      "fact": "It fell from 32 percent in 2000 to 9.3 percent today.",
+      "source": "SDG Index database, SDR 2026, indicator sdg1_wpc, World series"
+    },
+    {
+      "id": "q2",
+      "text": "How many of the world's one year old children have received at least their basic vaccinations?",
+      "options": ["Around 30 percent", "Around 60 percent", "Around 90 percent"],
+      "correct": 2,
+      "fact": "87 percent of infants worldwide receive basic vaccination coverage.",
+      "source": "SDG Index database, SDR 2026, indicator sdg3_vac, World series, 2024"
+    },
+    {
+      "id": "q3",
+      "text": "What is the average life expectancy of a person born in the world today?",
+      "options": ["About 62 years", "About 68 years", "About 74 years"],
+      "correct": 2,
+      "fact": "World life expectancy reached 73.7 years in 2025, up from 67.6 in 2000.",
+      "source": "SDG Index database, SDR 2026, indicator sdg3_lifee, World series"
+    },
+    {
+      "id": "q4",
+      "text": "Out of every 10 people in the world, how many have access to electricity?",
+      "options": ["About 5", "About 7", "About 9"],
+      "correct": 2,
+      "fact": "91.7 percent of the world's population has access to electricity, up from 78 percent in 2000.",
+      "source": "SDG Index database, SDR 2026, indicator sdg7_elecac, World series, 2023"
+    },
+    {
+      "id": "q5",
+      "text": "Since 2000, the number of children dying before their fifth birthday has...",
+      "options": ["Increased", "Stayed about the same", "Fallen by more than half"],
+      "correct": 2,
+      "fact": "Under five mortality fell from 57 to 24.6 deaths per 1000 live births between 2000 and 2024.",
+      "source": "SDG Index database, SDR 2026, indicator sdg3_u5mort, World series"
+    }
+  ]
+}

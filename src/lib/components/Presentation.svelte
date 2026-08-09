@@ -3,8 +3,9 @@
 	import { stops } from '$lib/stores/stops.svelte.js';
 	import { motion } from '$lib/stores/motion.svelte.js';
 
-	/** The nine scenes of the talk, for the rail and the digit keys. */
+	/** The ten scenes of the talk, for the rail and the digit keys. */
 	const SCENES = [
+		[0, 'Five questions'],
 		[1, 'The promise'],
 		[2, 'The long good news'],
 		[3, 'The stall'],
@@ -18,7 +19,7 @@
 
 	let blanked = $state(false);
 	let helpOpen = $state(false);
-	let currentScene = $state(1);
+	let currentScene = $state(0);
 
 	function isTyping(e) {
 		const t = e.target;
@@ -58,7 +59,8 @@
 		} else if (k === 'End') {
 			e.preventDefault();
 			stops.scrollToIndex(stops.ordered.length - 1);
-		} else if (k >= '1' && k <= '9') {
+		} else if (k >= '0' && k <= '9') {
+			// 0 opens the quiz, 1 to 9 are the nine pages of the story.
 			e.preventDefault();
 			stops.toScene(Number(k));
 		} else if (k === 'f' || k === 'F') {
@@ -124,7 +126,7 @@
 		<dl>
 			<dt>→ space pgdn</dt><dd>Next stop</dd>
 			<dt>← pgup</dt><dd>Previous stop</dd>
-			<dt>1 – 9</dt><dd>Jump to scene</dd>
+			<dt>0 – 9</dt><dd>Jump to scene, 0 is the quiz</dd>
 			<dt>Home / End</dt><dd>Top / end</dd>
 			<dt>F</dt><dd>Fullscreen</dd>
 			<dt>B</dt><dd>Blank the screen</dd>

@@ -1,0 +1,44 @@
+The site at https://mafiatun.github.io/four-years-left/ is live. This session adds ONE
+feature: the Gapminder style opening quiz, Scene 0 of the briefing. Read Section 00 of
+PLAN.md and FIREBASE.md first. New kit assets: data/quiz_questions.json (copy to
+static/data/), static-assets/qr-quiz.svg and qr-quiz.png (copy to static/), FIREBASE.md.
+
+BUILD, pausing after each step for my review:
+
+1. The phone page at /quiz (prerendered route, works under the /four-years-left base path).
+   Mobile first, navy background, one question per screen from quiz_questions.json,
+   three large tap targets (minimum 64px tall), progress dots, back allowed until submit.
+   On finish: submit once, then a score screen "You got N of 5" with one line:
+   "Look up at the big screen." No names, no cookies, no analytics. Must feel instant
+   on a phone over mobile data.
+
+2. Scene 0, inserted before the hero as the first stop of the presentation layer.
+   State A, the invitation: QR code (static/qr-quiz.svg) very large, the /quiz URL
+   printed under it for anyone whose camera fails, the line "From your head, not from
+   Google. Completely anonymous." and a live counter "N answered so far".
+   States B through F, one reveal per advance keypress, one question each:
+   horizontal bars of the room's answer distribution animating in, correct option in
+   green #2EA043, wrong options grey, dashed vertical chimp line at 33 percent labeled
+   "a chimpanzee scores here", the fact and source line beneath, Atlas chart furniture.
+   State G, summary: the room's average score as a big number against 33 percent,
+   and the handoff line "You are not wrong because you did not study. The world
+   changed while nobody was looking. The next nine pages are the update."
+
+3. Results transport, REST only, no Firebase SDK:
+   src/lib/quiz-config.js exports QUIZ_DB (empty string for now, I will paste my URL).
+   Submit: POST {QUIZ_DB}/responses.json with {"q1":0..2,...,"q5":0..2,"ts":Date.now()}.
+   Presenter: GET {QUIZ_DB}/responses.json every 2 seconds while Scene 0 is active, tally
+   client side. Hidden reset: shift+R pressed twice within 2 seconds sends DELETE.
+   Graceful degradation is mandatory: if QUIZ_DB is empty or any request fails, the
+   phone page still scores locally, the counter hides, and reveal states show the
+   correct answer, chimp line, fact and source without room bars. No error ever
+   surfaces on screen.
+
+4. Wire Scene 0 into the keyboard layer as stops before the hero (digit 0 jumps to it),
+   add a tenth dot to the progress rail, verify npm run build is clean, zero console
+   errors, the quiz page scores correctly for all 3^5 answer paths (spot check five),
+   and the reveal works with QUIZ_DB empty AND with a test database URL.
+
+Rules: nothing below 14px on the presentation screens, phone page minimum 18px,
+no external requests except the QUIZ_DB endpoints, and if the live polling fights you
+for more than 30 minutes, ship the degraded mode as the default and tell me.
