@@ -10,7 +10,7 @@
  * reveal shows the correct answer, the chimp line, the fact and the source
  * without the room's bars. Nothing on screen ever announces the difference.
  */
-export const QUIZ_DB = '';
+export const QUIZ_DB = 'https://four-years-left-sdg-default-rtdb.firebaseio.com';
 
 /**
  * The URL printed under the QR code, for anyone whose camera will not focus.

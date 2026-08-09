@@ -1,5 +1,24 @@
 # Live quiz results backend, ten minute setup
 
+> **Already done, 9 August 2026.** The setup below was carried out with the Firebase CLI.
+> Nothing here is left to do before the briefing.
+>
+> | What | Where |
+> | --- | --- |
+> | Project | `four-years-left-sdg` ("Four Years Left"), owner samsumon@gmail.com |
+> | Database | `https://four-years-left-sdg-default-rtdb.firebaseio.com`, us-central1 |
+> | Console | <https://console.firebase.google.com/project/four-years-left-sdg/database> |
+> | Wired at | `src/lib/quiz-config.js`, `QUIZ_DB` |
+>
+> The database does **not** run in test mode, so nothing expires in 30 days. Rules live in
+> `database.rules.json`: anonymous read and write on `/responses` only, each row validated
+> as exactly q1 to q5 in the range 0 to 2 plus a numeric `ts`, everything else denied.
+> Redeploy them any time with `npx firebase-tools deploy --only database`.
+>
+> Verified live: three phone submissions landed, the presenter counter and bars picked them
+> up inside one poll, shift+R twice wiped the database, and the reveal fell back to the
+> chimp benchmark. Rehearsal rows have been cleared; the database is empty.
+
 The quiz works in three tiers. Tier one, live room results, needs this Firebase setup.
 Tier two needs nothing: phones score locally and the reveal shows correct answers with
 the chimp benchmark. Tier three is hands up voting on the same reveal screens.

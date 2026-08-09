@@ -1,0 +1,22 @@
+{
+	"rules": {
+		".read": false,
+		".write": false,
+
+		"responses": {
+			".read": true,
+			".write": true,
+
+			"$response": {
+				".validate": "newData.hasChildren(['q1', 'q2', 'q3', 'q4', 'q5', 'ts'])",
+				"q1": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2" },
+				"q2": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2" },
+				"q3": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2" },
+				"q4": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2" },
+				"q5": { ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2" },
+				"ts": { ".validate": "newData.isNumber()" },
+				"$other": { ".validate": false }
+			}
+		}
+	}
+}
