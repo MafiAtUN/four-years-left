@@ -1,11 +1,13 @@
 <script>
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
+	import { goto } from '$app/navigation';
 	import { stops } from '$lib/stores/stops.svelte.js';
 	import { motion } from '$lib/stores/motion.svelte.js';
 
-	/** The ten scenes of the talk, for the rail and the digit keys. */
+	/** The nine scenes of the talk, for the rail and the digit keys. The quiz
+	    is not among them: it is its own screen, one key away. */
 	const SCENES = [
-		[0, 'Five questions'],
 		[1, 'The promise'],
 		[2, 'The long good news'],
 		[3, 'The stall'],
@@ -19,7 +21,7 @@
 
 	let blanked = $state(false);
 	let helpOpen = $state(false);
-	let currentScene = $state(0);
+	let currentScene = $state(1);
 
 	function isTyping(e) {
 		const t = e.target;
@@ -59,15 +61,18 @@
 		} else if (k === 'End') {
 			e.preventDefault();
 			stops.scrollToIndex(stops.ordered.length - 1);
-		} else if (k >= '0' && k <= '9') {
-			// 0 opens the quiz, 1 to 9 are the nine pages of the story.
+		} else if (k === '0') {
+			// The quiz lives on its own screen now, so 0 crosses to it rather
+			// than scrolling to it.
+			e.preventDefault();
+			goto(`${base}/quiz/results`);
+		} else if (k >= '1' && k <= '9') {
 			e.preventDefault();
 			stops.toScene(Number(k));
 		} else if (k === 's' || k === 'S') {
-			// Close the quiz on your cue: straight to the room's score, however
-			// many people have answered by the time you press it.
+			// Same cue as before: the room's score, whoever has answered by now.
 			e.preventDefault();
-			stops.toSceneEnd(0);
+			goto(`${base}/quiz/results#score`);
 		} else if (k === 'f' || k === 'F') {
 			e.preventDefault();
 			if (document.fullscreenElement) document.exitFullscreen();
@@ -131,9 +136,10 @@
 		<dl>
 			<dt>→ space pgdn</dt><dd>Next stop</dd>
 			<dt>← pgup</dt><dd>Previous stop</dd>
-			<dt>0 – 9</dt><dd>Jump to scene, 0 is the quiz</dd>
+			<dt>1 – 9</dt><dd>Jump to scene</dd>
 			<dt>Home / End</dt><dd>Top / end</dd>
-			<dt>S</dt><dd>Jump to the room's score</dd>
+			<dt>0</dt><dd>The quiz screen</dd>
+			<dt>S</dt><dd>The room's score</dd>
 			<dt>F</dt><dd>Fullscreen</dd>
 			<dt>B</dt><dd>Blank the screen</dd>
 			<dt>?</dt><dd>This panel</dd>

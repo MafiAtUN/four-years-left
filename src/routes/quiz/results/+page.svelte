@@ -66,6 +66,9 @@
 	onMount(() => {
 		room.start();
 
+		// S from the deck arrives here asking for the score, not the invitation.
+		if (location.hash === '#score') step = LAST;
+
 		// The hidden wipe, identical to the deck's, for the gap between rehearsal
 		// and the real room.
 		let lastR = 0;

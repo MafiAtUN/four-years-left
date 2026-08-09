@@ -4,7 +4,6 @@
 	import Presentation from '$lib/components/Presentation.svelte';
 	import ComparePill from '$lib/components/ComparePill.svelte';
 
-	import Scene0 from '$lib/sections/Scene0.svelte';
 	import Hero from '$lib/sections/Hero.svelte';
 	import KeyFacts from '$lib/sections/KeyFacts.svelte';
 	import PovertyVote from '$lib/sections/PovertyVote.svelte';
@@ -28,9 +27,6 @@
 <Presentation />
 
 <main>
-	<!-- Scene 0, before we start: five questions -->
-	<Scene0 />
-
 	<!-- Scene 1, the promise -->
 	<Hero />
 	<KeyFacts />
