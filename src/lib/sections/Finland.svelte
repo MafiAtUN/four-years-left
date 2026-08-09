@@ -2,7 +2,7 @@
 	import Section from '$lib/components/Section.svelte';
 	import GoalTiles from '$lib/components/GoalTiles.svelte';
 	import { countries, fmt1 } from '$lib/data';
-	import { DASH, GOAL_NAMES, SOURCE_LINE } from '$lib/tokens';
+	import { DASH, GOAL_NAMES, SOURCE_LINE, textSafe } from '$lib/tokens';
 
 	const fin = countries['Finland'];
 	const reds = fin.dash
@@ -21,7 +21,7 @@
 			<h2>Nobody has finished.</h2>
 			<p class="lede">
 				Finland ranks first in the world at {fmt1(fin.score)} out of 100, and it is still
-				<strong style="color:{DASH.r}">red</strong> on
+				<strong style="color:{textSafe(DASH.r)}">red</strong> on
 				{redNames.length === 1 ? 'one goal' : `${redNames.length} goals`}. Its spillover score, which
 				measures the damage a country's consumption does abroad, is {fmt1(fin.spill)}.
 			</p>
@@ -66,7 +66,7 @@
 		font-weight: 700;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
-		color: var(--color-un-blue);
+		color: var(--color-link);
 		margin: 0 0 12px;
 	}
 

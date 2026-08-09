@@ -177,3 +177,37 @@ export const GOAL_SHORT = [
  * the same five score bins.
  */
 export const HERO_RAMP = ['#4F7BB0', '#3F9BD6', '#35B8EC', '#79D8F5', '#CDF3FF'];
+
+/**
+ * Text safe variants of the series colors.
+ *
+ * Several palette colors are far too light to read as text on white: the
+ * yellows sit near 1.6:1. Charts keep the true color, but a caption highlight
+ * or an eyebrow is text, so it uses the darkened variant of the same hue. The
+ * word still reads as "the yellow series" while clearing WCAG AA.
+ */
+export const TEXT_SAFE = {
+	'#F5C518': '#8A6D00', // dashboard yellow / pace slowing
+	'#FCC30B': '#8A6D00', // SDG 7
+	'#DDA63A': '#8A6512', // SDG 2
+	'#BF8B2E': '#7A5814', // SDG 12
+	'#FD6925': '#C24405', // SDG 9
+	'#F58220': '#A85400', // dashboard orange
+	'#FD9D24': '#9A5A00', // SDG 11
+	'#FF3A21': '#C42C10', // SDG 5
+	'#009EDB': '#0A6E9B', // UN blue / pace fast
+	'#0A97D9': '#0A6E9B', // SDG 14
+	'#26BDE2': '#0E7C99', // SDG 6
+	'#D64545': '#B22222', // dashboard red / pace flat
+	'#2EA043': '#1B7F3B', // dashboard green
+	'#56C02B': '#3E8C1B', // SDG 15
+	'#4C9F38': '#357026', // SDG 3
+	'#7CBF6B': '#4A7C3C', // trend moderately improving
+	'#B0B7C3': '#5B6675' // dashboard grey
+};
+
+/** Darkened twin of a series color for use as text, or the color unchanged. */
+export function textSafe(c) {
+	if (typeof c !== 'string') return c;
+	return TEXT_SAFE[c.toUpperCase()] ?? c;
+}

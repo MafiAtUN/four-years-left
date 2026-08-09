@@ -77,6 +77,8 @@
 :root {
 	/* Height of the sticky header, so sticky charts can clear it. */
 	--header-h: 48px;
+	/* UN blue is 3.03:1 on white, which fails for text. */
+	--color-link: #0a6e9b;
 	--color-navy-500: #2b3f66;
 	--reading-measure: 65ch;
 }

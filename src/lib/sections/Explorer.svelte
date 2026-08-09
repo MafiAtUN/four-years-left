@@ -14,7 +14,7 @@
 		fmt1
 	} from '$lib/data';
 	import { compare } from '$lib/stores/compare.svelte.js';
-	import { RULE, UN_BLUE, DASH } from '$lib/tokens';
+	import { RULE, UN_BLUE, DASH, textSafe } from '$lib/tokens';
 
 	/** The five countries that star in the story, preloaded as one click chips. */
 	const CHIPS = ['United States', 'Bangladesh', 'India', 'Lebanon', 'Finland'];
@@ -155,10 +155,10 @@
 		</div>
 
 		<p class="legend-note">
-			Tile color is the goal rating, from <strong style="color:{DASH.g}">green</strong> through
-			<strong style="color:{DASH.y}">yellow</strong> and
-			<strong style="color:{DASH.o}">orange</strong> to
-			<strong style="color:{DASH.r}">red</strong>; grey means no data. The arrow is the trend. Hover
+			Tile color is the goal rating, from <strong style="color:{textSafe(DASH.g)}">green</strong> through
+			<strong style="color:{textSafe(DASH.y)}">yellow</strong> and
+			<strong style="color:{textSafe(DASH.o)}">orange</strong> to
+			<strong style="color:{textSafe(DASH.r)}">red</strong>; grey means no data. The arrow is the trend. Hover
 			any tile for its goal.
 		</p>
 	</div>
@@ -186,7 +186,7 @@
 		font-weight: 700;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
-		color: var(--color-un-blue);
+		color: var(--color-link);
 		margin: 0 0 10px;
 	}
 
@@ -222,7 +222,7 @@
 	.chip:hover,
 	.chip.on {
 		border-color: var(--color-un-blue);
-		color: var(--color-un-blue);
+		color: var(--color-link);
 	}
 
 	.body {

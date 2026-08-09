@@ -96,7 +96,7 @@
 
 	.foot button:hover {
 		border-color: var(--color-un-blue);
-		color: var(--color-un-blue);
+		color: var(--color-link);
 	}
 
 	.table-wrap {

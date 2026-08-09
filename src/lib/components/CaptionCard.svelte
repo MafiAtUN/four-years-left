@@ -11,10 +11,17 @@
 	 *   children: import('svelte').Snippet
 	 * }}
 	 */
+	import { textSafe } from '$lib/tokens';
+
 	let { accent = 'var(--color-un-blue)', active = true, eyebrow = '', children } = $props();
+
+	// The bar carries the true series color; the label has to be readable.
+	const eyebrowColor = $derived(
+		accent.startsWith('var(') ? 'var(--color-link)' : textSafe(accent)
+	);
 </script>
 
-<div class="card" class:dim={!active} style="--accent:{accent}">
+<div class="card" class:dim={!active} style="--accent:{accent}; --eyebrow:{eyebrowColor}">
 	{#if eyebrow}
 		<p class="eyebrow">{eyebrow}</p>
 	{/if}
@@ -33,10 +40,12 @@
 		transition: opacity 400ms ease;
 	}
 
-	/* Steps that are not current stay legible but recede: the Atlas move of
-	   emphasis by fading everything else. */
+	/* Steps that are not current recede by losing their lift, not by fading.
+	   Fading text to 0.62 dropped the eyebrow below WCAG AA, and since steps
+	   sit a full viewport apart only one card is ever really in view, so the
+	   dimming bought nothing. Emphasis by fading still governs chart series. */
 	.dim {
-		opacity: 0.32;
+		box-shadow: 0 1px 2px rgb(11 27 63 / 0.08);
 	}
 
 	.eyebrow {
@@ -44,7 +53,7 @@
 		font-weight: 700;
 		letter-spacing: 0.1em;
 		text-transform: uppercase;
-		color: var(--accent);
+		color: var(--eyebrow);
 		margin: 0 0 8px;
 	}
 

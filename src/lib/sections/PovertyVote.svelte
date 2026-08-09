@@ -165,7 +165,7 @@
 		font-weight: 700;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
-		color: var(--color-un-blue);
+		color: var(--color-link);
 		margin: 0 0 12px;
 	}
 
@@ -227,7 +227,7 @@
 		font-size: var(--text-small);
 		background: none;
 		border: 0;
-		color: var(--color-un-blue);
+		color: var(--color-link);
 		text-decoration: underline;
 		cursor: pointer;
 		padding: 4px 0;

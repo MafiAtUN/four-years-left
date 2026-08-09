@@ -186,7 +186,7 @@
 		font-size: var(--text-micro);
 		background: none;
 		border: 0;
-		color: var(--color-un-blue);
+		color: var(--color-link);
 		text-decoration: underline;
 		cursor: pointer;
 		padding: 2px 0;
@@ -218,7 +218,7 @@
 
 	.quick-btn:hover:not(:disabled) {
 		border-color: var(--color-un-blue);
-		color: var(--color-un-blue);
+		color: var(--color-link);
 	}
 
 	.quick-btn.on {

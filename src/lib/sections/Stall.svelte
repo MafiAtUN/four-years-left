@@ -47,7 +47,9 @@
 		}))
 	);
 
-	const margin = { top: 28, right: 108, bottom: 46, left: 56 };
+	// Right margin holds the direct end labels, including the longest
+	// comparison country name.
+	const margin = { top: 28, right: 170, bottom: 46, left: 56 };
 	const iw = $derived(Math.max(120, w - margin.left - margin.right));
 	const ih = $derived(Math.max(120, h - margin.top - margin.bottom));
 

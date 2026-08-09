@@ -62,7 +62,7 @@
 	}
 
 	.link:hover {
-		color: var(--color-un-blue);
+		color: var(--color-link);
 	}
 
 	@media print {

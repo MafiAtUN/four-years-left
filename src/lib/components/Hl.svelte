@@ -6,10 +6,12 @@
 	 *
 	 * @type {{ c: string, children: import('svelte').Snippet }}
 	 */
+	import { textSafe } from '$lib/tokens';
+
 	let { c, children } = $props();
 </script>
 
-<strong style="color:{c}">{@render children()}</strong>
+<strong style="color:{textSafe(c)}">{@render children()}</strong>
 
 <style>
 	strong {
