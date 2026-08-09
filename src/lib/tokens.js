@@ -105,3 +105,75 @@ export const BLUE_RAMP = ['#D6EAF6', '#A5D2EC', '#66B4E0', '#2A90CC', '#00618F']
 
 export const SOURCE_LINE =
 	'Sustainable Development Report 2026, SDG Index database (Fuller, Iablonovski, Lafortune and Sachs).';
+
+/** Trend arrow colors for the waffle's direction of travel state. */
+export const TREND_COLOR = {
+	up: '#1B7F3B',
+	mod: '#7CBF6B',
+	flat: '#F5C518',
+	down: '#D64545',
+	na: '#B0B7C3'
+};
+
+/** Regional line colors. Direct labels carry the meaning; these only separate. */
+export const REGION_COLOR = {
+	'OECD members': '#1F4E79',
+	'Eastern Europe and Central Asia': '#7B6CA6',
+	'Latin America and the Caribbean': '#C06C34',
+	'East and South Asia': '#2E8B77',
+	'Middle East and North Africa': '#A8763E',
+	'Sub-Saharan Africa': '#B5446E',
+	Oceania: '#6B7A8F',
+	World: '#16202E'
+};
+
+/** Approximate centroids for the nine ranked microstates with no polygon at 110m. */
+export const MICROSTATES = {
+	Malta: [14.4, 35.9],
+	Singapore: [103.8, 1.35],
+	Maldives: [73.5, 3.2],
+	Barbados: [-59.5, 13.1],
+	'Cabo Verde': [-23.6, 15.1],
+	Mauritius: [57.5, -20.3],
+	Bahrain: [50.6, 26.0],
+	'Sao Tome and Principe': [6.6, 0.3],
+	Comoros: [43.3, -11.6]
+};
+
+/** Fixed bins for the choropleth, matching the five step blue ramp. */
+export const SCORE_BINS = [50, 60, 70, 80];
+export function scoreBin(score) {
+	if (score == null) return -1;
+	let i = 0;
+	while (i < SCORE_BINS.length && score >= SCORE_BINS[i]) i++;
+	return i;
+}
+
+/** Short goal labels for small multiples and tight tiles, index 1 to 17. */
+export const GOAL_SHORT = [
+	null,
+	'Poverty',
+	'Hunger',
+	'Health',
+	'Education',
+	'Gender',
+	'Water',
+	'Energy',
+	'Work',
+	'Industry',
+	'Inequality',
+	'Cities',
+	'Consumption',
+	'Climate',
+	'Oceans',
+	'Land',
+	'Peace',
+	'Partnerships'
+];
+
+/**
+ * Hero particle ramp. The choropleth ramp runs dark at the top end, which
+ * disappears against the navy, so the hero gets its own light ramp keyed to
+ * the same five score bins.
+ */
+export const HERO_RAMP = ['#4F7BB0', '#3F9BD6', '#35B8EC', '#79D8F5', '#CDF3FF'];

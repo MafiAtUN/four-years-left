@@ -75,6 +75,8 @@
 /* The one token that needed a real value, kept out of the block above
    so a typo can never silently ship a broken color. */
 :root {
+	/* Height of the sticky header, so sticky charts can clear it. */
+	--header-h: 48px;
 	--color-navy-500: #2b3f66;
 	--reading-measure: 65ch;
 }
