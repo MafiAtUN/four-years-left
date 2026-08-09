@@ -66,6 +66,18 @@ class Stops {
 		if (i !== -1) this.scrollToIndex(i);
 	}
 
+	/**
+	 * Jump to the last stop of a scene. The quiz needs this: the room keeps
+	 * answering while you talk, so you close it on your cue rather than on the
+	 * stop order, and the summary reads whatever has arrived by then.
+	 */
+	toSceneEnd(scene) {
+		const list = this.ordered;
+		let i = -1;
+		for (let k = 0; k < list.length; k++) if (list[k].scene === scene) i = k;
+		if (i !== -1) this.scrollToIndex(i);
+	}
+
 	toTop() {
 		this.seeking = true;
 		window.scrollTo({ top: 0, behavior: 'smooth' });

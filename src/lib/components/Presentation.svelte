@@ -63,6 +63,11 @@
 			// 0 opens the quiz, 1 to 9 are the nine pages of the story.
 			e.preventDefault();
 			stops.toScene(Number(k));
+		} else if (k === 's' || k === 'S') {
+			// Close the quiz on your cue: straight to the room's score, however
+			// many people have answered by the time you press it.
+			e.preventDefault();
+			stops.toSceneEnd(0);
 		} else if (k === 'f' || k === 'F') {
 			e.preventDefault();
 			if (document.fullscreenElement) document.exitFullscreen();
@@ -128,6 +133,7 @@
 			<dt>← pgup</dt><dd>Previous stop</dd>
 			<dt>0 – 9</dt><dd>Jump to scene, 0 is the quiz</dd>
 			<dt>Home / End</dt><dd>Top / end</dd>
+			<dt>S</dt><dd>Jump to the room's score</dd>
 			<dt>F</dt><dd>Fullscreen</dd>
 			<dt>B</dt><dd>Blank the screen</dd>
 			<dt>?</dt><dd>This panel</dd>
