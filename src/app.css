@@ -205,3 +205,58 @@ html[data-reduced-motion='on'] *::after {
 	animation-iteration-count: 1 !important;
 	transition-duration: 150ms !important;
 }
+
+/* ============================================================
+   Print. The story collapses into a clean handout: sticky charts
+   become static, scrolly steps stack under their chart, and the
+   presenting furniture disappears.
+   ============================================================ */
+@media print {
+	@page {
+		margin: 14mm;
+	}
+
+	html,
+	body {
+		background: #fff !important;
+		color: #000;
+		font-size: 11pt;
+	}
+
+	/* Nothing sticks or overlaps on paper. */
+	:global(.sticky-chart) {
+		position: static !important;
+		height: auto !important;
+		page-break-inside: avoid;
+	}
+
+	:global(.steps) {
+		margin-top: 0 !important;
+	}
+
+	:global(.step) {
+		min-height: 0 !important;
+		page-break-inside: avoid;
+		padding: 8pt 0 !important;
+	}
+
+	:global(.step-inner) {
+		width: 100% !important;
+	}
+
+	/* Dimmed steps are readable on paper, where there is no current state. */
+	:global(.card) {
+		opacity: 1 !important;
+		box-shadow: none !important;
+		border: 1px solid #ccc;
+	}
+
+	section {
+		page-break-after: always;
+		min-height: 0 !important;
+	}
+
+	canvas {
+		display: none !important;
+	}
+}

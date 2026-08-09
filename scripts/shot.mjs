@@ -14,7 +14,7 @@ import { dirname } from 'node:path';
 
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const PORT = 9333;
-const [, , out = 'shot.png', path = '/', where = '0'] = process.argv;
+const [, , out = 'shot.png', path = '/', where = '0', vw = '1920', vh = '1080'] = process.argv;
 const URL_BASE = process.env.SITE ?? 'http://localhost:4173/four-years-left';
 
 const chrome = spawn(
@@ -25,7 +25,7 @@ const chrome = spawn(
 		'--no-sandbox',
 		'--hide-scrollbars',
 		'--force-device-scale-factor=1',
-		'--window-size=1920,1080',
+		`--window-size=${vw},${vh}`,
 		`--remote-debugging-port=${PORT}`,
 		'--user-data-dir=/tmp/chrome-shot-profile',
 		'about:blank'
@@ -86,10 +86,10 @@ function send(method, params = {}) {
 await send('Runtime.enable');
 await send('Page.enable');
 await send('Emulation.setDeviceMetricsOverride', {
-	width: 1920,
-	height: 1080,
+	width: Number(vw),
+	height: Number(vh),
 	deviceScaleFactor: 1,
-	mobile: false
+	mobile: Number(vw) < 800
 });
 
 await send('Page.navigate', { url: URL_BASE + path });

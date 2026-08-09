@@ -63,7 +63,7 @@
 	const callouts = ['Finland', 'South Sudan'];
 
 	/* ---------------- regional lines ---------------- */
-	const m = { top: 22, right: 210, bottom: 46, left: 54 };
+	const m = { top: 22, right: 262, bottom: 46, left: 54 };
 	const iw = $derived(Math.max(100, w - m.left - m.right));
 	const ih = $derived(Math.max(100, h - m.top - m.bottom));
 	const x = $derived(
@@ -72,6 +72,7 @@
 	const y = $derived(scaleLinear().domain([40, 82]).range([ih, 0]));
 	const mk = $derived(
 		d3line()
+			.defined((v) => v != null)
 			.x((_, i) => x(regionYears[i]))
 			.y((v) => y(v))
 	);
@@ -116,7 +117,7 @@
 	const titles = [
 		'Where you are born still writes most of your scorecard',
 		'Every region has climbed since 2000',
-		'A 24 point gap separates the richest and poorest regions',
+		`A ${fmt1(gap)} point gap separates the richest and poorest regions`,
 		'But the poorest regions are closing the distance'
 	];
 </script>

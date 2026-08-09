@@ -55,7 +55,7 @@ export const REGION_LINES = [
 export const REGION_LABEL = {
 	'OECD members': 'OECD',
 	'Eastern Europe and Central Asia': 'E. Europe & C. Asia',
-	'Latin America and the Caribbean': 'Latin America & Caribbean',
+	'Latin America and the Caribbean': 'Latin America',
 	'East and South Asia': 'East & South Asia',
 	'Middle East and North Africa': 'Middle East & N. Africa',
 	'Sub-Saharan Africa': 'Sub-Saharan Africa',

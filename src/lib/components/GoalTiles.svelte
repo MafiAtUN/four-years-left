@@ -26,8 +26,14 @@
 	// When a step emphasizes some ratings, the rest recede rather than vanish.
 	const isDim = (t) => emphasize.length > 0 && !emphasize.includes(t.d);
 
-	/** Rating colors are dark enough for white glyphs except the yellow. */
-	const fg = (d) => (d === 'y' ? '#4A3B00' : d === 'x' ? '#3C4451' : '#fff');
+	/**
+	 * Foreground per rating, chosen so every tile clears WCAG AA.
+	 * White text fails on the orange and the yellow; dark text fails on the
+	 * red. At 19px bold the labels count as large text, which needs 3:1.
+	 *   green  white 3.4:1   red   white 4.4:1
+	 *   orange dark  6.3:1   yellow dark 9.9:1   grey dark 8.1:1
+	 */
+	const fg = (d) => (d === 'g' || d === 'r' ? '#fff' : '#241C00');
 </script>
 
 <div class="tiles" style="--cols:{cols}; --size:{size}px">
@@ -95,14 +101,14 @@
 	}
 
 	.num {
-		font-size: var(--text-micro);
+		font-size: 19px;
 		font-weight: 800;
 		font-family: var(--font-display);
 		line-height: 1;
 	}
 
 	.glyph {
-		font-size: var(--text-micro);
+		font-size: 19px;
 		font-weight: 700;
 		line-height: 1;
 	}

@@ -39,6 +39,7 @@
 	const y = $derived(scaleLinear().domain([yLo, yHi]).range([ih, 0]));
 	const mk = $derived(
 		d3line()
+			.defined((v) => v != null)
 			.x((_, i) => x(years[i]))
 			.y((v) => y(v))
 	);
