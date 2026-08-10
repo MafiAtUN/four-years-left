@@ -36,10 +36,17 @@
 		return `M${x(years[0])},${y(first)}L${x(years.at(-1))},${y(end)}`;
 	});
 
+	/** The guess never reveals anything: the room commits first, the truth lands on cue. */
 	function vote(v) {
 		guess = v;
-		revealed = true;
 	}
+
+	/** The finding only becomes the title once the answer is out. */
+	const chartTitle = $derived(
+		revealed
+			? `Extreme poverty fell from ${fmt1(first)}% to ${fmt1(last)}% in a single generation`
+			: 'Since 2000, which way has extreme poverty moved?'
+	);
 </script>
 
 <Section scene={2} id="poverty" label="The long good news">
@@ -79,20 +86,29 @@
 						{#if guess === 'falling'}
 							Correct — and probably by more than you think. It fell {fmt1(drop)}%, from
 							{fmt1(first)}% to {fmt1(last)}%.
-						{:else}
+						{:else if guess}
 							It has been falling, steeply: from {fmt1(first)}% to {fmt1(last)}%, a drop of
 							{fmt1(drop)}%. Most rooms guess too pessimistically.
+						{:else}
+							It has been falling, steeply: from {fmt1(first)}% to {fmt1(last)}%, a drop of
+							{fmt1(drop)}%.
 						{/if}
 					</p>
+					<button class="again" onclick={() => { revealed = false; guess = null; }}>
+						Guess again
+					</button>
 				{:else}
-					<button class="reveal" onclick={() => (revealed = true)}>Reveal the answer</button>
+					<button class="reveal" onclick={() => (revealed = true)}>
+						Reveal the actual numbers
+					</button>
+					<p class="hint">{guess ? 'Locked in.' : 'Pick one first — then reveal.'}</p>
 				{/if}
 			</div>
 		</div>
 
 		<div class="chart">
 			<ChartFrame
-				title="Extreme poverty fell from {fmt1(first)}% to {fmt1(last)}% in a single generation"
+				title={chartTitle}
 				subtitle="Share of the world population living in extreme poverty, percent, {years[0]} to {years.at(-1)}."
 				accent={SDG[1]}
 			>
@@ -222,8 +238,33 @@
 		color: #fff;
 	}
 
+	/* The reveal is the beat of the scene, so it reads as a button, not a footnote. */
 	.reveal {
-		margin-top: 14px;
+		margin-top: 18px;
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: var(--text-body);
+		padding: 12px 26px;
+		border-radius: 999px;
+		border: 2px solid var(--color-navy);
+		background: var(--color-navy);
+		color: #fff;
+		cursor: pointer;
+	}
+
+	.reveal:hover {
+		background: #fff;
+		color: var(--color-navy);
+	}
+
+	.hint {
+		margin: 10px 0 0;
+		font-size: var(--text-small);
+		color: var(--color-ink-muted);
+	}
+
+	.again {
+		margin-top: 12px;
 		font-size: var(--text-small);
 		background: none;
 		border: 0;
