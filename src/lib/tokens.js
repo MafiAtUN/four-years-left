@@ -186,7 +186,7 @@ export const HERO_RAMP = ['#4F7BB0', '#3F9BD6', '#35B8EC', '#79D8F5', '#CDF3FF']
  * or an eyebrow is text, so it uses the darkened variant of the same hue. The
  * word still reads as "the yellow series" while clearing WCAG AA.
  */
-export const TEXT_SAFE = {
+const TEXT_SAFE = {
 	'#F5C518': '#8A6D00', // dashboard yellow / pace slowing
 	'#FCC30B': '#8A6D00', // SDG 7
 	'#DDA63A': '#8A6512', // SDG 2

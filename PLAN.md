@@ -26,6 +26,10 @@ These are students of diplomacy and international policy. They have heard both t
 
 Each scene below is one section of the website and one beat of the talk. For each I give the message, the number that carries it, and what is on screen.
 
+### Scene 0. The quiz (the Gapminder opening)
+Message: none yet, and that is the point. Before a single chart appears, the room commits to its own picture of the world. On screen is only a QR code, a five question quiz, and your instruction: no Google, no ChatGPT, just your best guess, completely anonymous. The five questions cover extreme poverty, child vaccination, life expectancy, electricity access and child mortality, all with three options in the Hans Rosling style, and all answerable from the same database as the rest of the briefing. Once answers stop arriving, you reveal the room's bars question by question against the correct answer and the chimpanzee line at 33 percent, the score random guessing would achieve. Every audience Rosling ever tested scored below the chimps, because our mental picture of the world runs decades behind the data, and the reveal that this room is no exception is the perfect springboard: you are not here to feel bad about being wrong, you are here to update. Then Scene 1 begins.
+On screen: the QR page, then the live results reveal, one question per keypress.
+
 ### Scene 1. The promise
 Message: In September 2015, 193 countries adopted 17 goals for 2030. This is the largest shared to do list in human history. Today we are 11 years in with 4 years to go.
 On screen: the hero. Deep navy, a field of 169 glowing particles (one per ranked country), the title, and the reveal data toggle. When you flip the toggle, the particles snap into a beeswarm ordered by SDG Index score, and the room sees for the first time that the decoration was the world all along. Do this flip live. It is the single best theatrical moment in the Atlas grammar and it earns attention for the next 50 minutes.
@@ -77,9 +81,10 @@ On screen: the projection cone to 2030, then the country explorer for Q&A.
 
 ## Run of show, 12:30 to 13:30
 
-12:30 to 12:35. Welcome, who you are, what the UN system does with data like this. The hero is on screen, particles drifting.
-12:35 to 12:38. Scene 1 and the reveal data flip.
-12:38 to 13:05. Scenes 2 through 8, scrolling the story. Budget roughly 3 to 4 minutes per scene. The scroll is your slide clicker, and because scenes are viewport locked you can pause on any state indefinitely for tangents.
+12:30 to 12:33. Welcome and one sentence of setup, then straight to the quiz QR page. Students answer on their phones while you introduce yourself, which converts dead settling in time into participation.
+12:33 to 12:40. The quiz reveal, question by question, chimp line and all. End on the punchline that the room, like every expert audience before it, underestimated the world, and promise to spend the hour closing that gap.
+12:40 to 12:43. Scene 1 and the reveal data flip.
+12:43 to 13:05. Scenes 2 through 8, scrolling the story. Scene 2's poverty moment becomes a callback to quiz question one rather than a separate vote. Budget roughly 3 to 4 minutes per scene. The scroll is your slide clicker, and because scenes are viewport locked you can pause on any state indefinitely for tangents.
 13:05 to 13:12. Scene 9 and the explorer. Invite two or three students to name a country, pull its dashboard live. International students will name home countries. This is reliably the moment a briefing becomes a conversation.
 13:12 to 13:28. Discussion. Prompts below.
 13:28 to 13:30. Close with the four years framing and where they can access the site and data themselves (the site stays online for them, which is the quiet advantage of delivering a briefing as a public website).
@@ -144,6 +149,8 @@ Everything on screen assumes an intelligent reader who has never seen this datas
 ## Information architecture and section specs
 
 Section 0, header. Minimal. Title left, reduced motion toggle and About link right.
+
+Section 00, the opening quiz system. Two pieces sharing quiz_questions.json. Piece one, the phone page at /quiz: mobile first, one question per screen, three huge tap targets, a progress dot row, no names and no login, and after question five a local score screen (You got 3 of 5. Look up at the big screen.) that also tells them to put the phone away. Piece two, scene zero of the presentation: a full navy page with the pre generated QR code (static/qr-quiz.svg, already pointing at the live /quiz URL), the line Answer from your head, not from Google, fully anonymous, and a live counter of responses received. Pressing the advance key walks the reveal: for each question, horizontal bars of the room's answer shares animate in, the correct option turns green, the others grey, with a dashed chimp line at 33 percent and the fact plus source beneath. Results flow through a free Firebase Realtime Database via plain REST (setup in FIREBASE.md, ten minutes), and the page degrades automatically: if the database is unreachable the reveal shows correct answers and the chimp benchmark without room bars, and the ultimate fallback is hands up voting on the same screens. The database holds only five integers and a timestamp per submission, keeping the anonymity promise literal. After the last question a summary screen shows the room's average score against the chimp's 33 percent, then hands off to the hero.
 
 Section 1, hero (Scene 1). Navy full viewport. Kicker UN BRIEFING, EMORY NYU COLUMBIA VISIT. Title Four Years Left. Standfirst of two sentences. Byline: your name and role, data credit to SDR 2026. The what is shown here, reveal data toggle morphs 169 particles into a beeswarm by index score with a 0 to 100 axis, Finland and South Sudan labeled at the extremes. Scroll cue at bottom.
 
@@ -225,7 +232,9 @@ The event is tomorrow, so the seven milestone plan collapses into a single day w
 
 Must have, non negotiable for the podium: the shell deployed on Pages with correct base path, hero with the beeswarm and reveal toggle (a crossfade between the drifting and sorted states is acceptable, the full particle morph is not required), the key facts strip, the stall scrolly, the report card waffle, the seventeen goals scrolly with at least a static small multiples state, the choropleth world map opening the world and regions scrolly, the portraits arrow chart, the Finland and projection sections as static compositions, the explorer with search and goal tiles, the keyboard presentation layer with progress rail, the comparison system on the stall chart, arrow chart and explorer, and the endmatter with license and citation.
 
-Should have, add if on schedule: the poverty moment as a three button vote (rising, flat, falling) which is thirty minutes of work instead of the three hours the full draw interaction costs, comparison overlays on the regions chart, the view as table export button on every chart, and the print stylesheet.
+Should have, add if on schedule: comparison overlays on the regions chart, the view as table export button on every chart, and the print stylesheet. The poverty vote is no longer needed, quiz question one covers it and Scene 2 calls back to it.
+
+The quiz addendum, added after the main build went live: the /quiz phone page, the scene zero QR and reveal pages, and the Firebase REST wiring are a two to three hour add on specified in Section 00, with quiz_questions.json, the pre generated QR assets and FIREBASE.md already in the kit. The phone page and reveal with static correct answers are must have once you commit to opening with the quiz. The live room bars are should have, protected by the automatic fallback. Reset the database with the hidden shift R shortcut after rehearsal.
 
 Could have, only if the evening is calm: the true you draw it interaction, the particles flying into the waffle, animated stat count ups, a closing QR code slide pointing at the live URL.
 

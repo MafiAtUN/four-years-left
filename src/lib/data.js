@@ -74,10 +74,6 @@ for (const [name, rec] of Object.entries(countries)) iso3ToName[rec.iso3] = name
 export const nameToIso3 = /** @type {Record<string, string>} */ ({});
 for (const [name, rec] of Object.entries(countries)) nameToIso3[name] = rec.iso3;
 
-/** name -> rank record, for the arrow chart. */
-export const rankByName = /** @type {Record<string, any>} */ ({});
-for (const r of ranks) rankByName[r.c] = r;
-
 /* ------------------------------------------------------------------ */
 /* Derived figures used in prose and annotations                       */
 /* ------------------------------------------------------------------ */
@@ -100,7 +96,7 @@ export const trendDenominator = dashboardCells.filter((c) => c.t !== 'na').lengt
 export const dashDenominator = dashboardCells.length;
 
 /** Counts straight from the cells, for anything that needs absolute numbers. */
-export function countBy(key) {
+function countBy(key) {
 	const out = {};
 	for (const c of dashboardCells) out[c[key]] = (out[c[key]] ?? 0) + 1;
 	return out;
@@ -108,12 +104,6 @@ export function countBy(key) {
 
 export const dashCounts = countBy('d');
 export const trendCounts = countBy('t');
-
-/** World index score for a given year. */
-export function worldScoreAt(year) {
-	const i = worldIndex.years.indexOf(year);
-	return i === -1 ? null : worldIndex.score[i];
-}
 
 /** Format helpers so rounding is consistent everywhere on the page. */
 export const fmt1 = (n) => (n == null ? '—' : n.toFixed(1));
