@@ -1,5 +1,6 @@
 <script>
 	import { onDestroy } from 'svelte';
+	import { base } from '$app/paths';
 	import { QUESTIONS, N_QUESTIONS, QUIZ_META, scoreOf, submitResponse } from '$lib/quiz.js';
 
 	/**
@@ -56,7 +57,7 @@
 </script>
 
 <svelte:head>
-	<title>Five questions · Four Years Left</title>
+	<title>Five questions · Four Years Left · SUNIA</title>
 	<meta name="theme-color" content="#0B1B3F" />
 	<meta name="robots" content="noindex" />
 </svelte:head>
@@ -69,7 +70,10 @@
 					<span class="dot" class:on={i === step} class:filled={answers[i] !== -1}></span>
 				{/each}
 			</div>
-			<p class="count">Question {step + 1} of {N_QUESTIONS}</p>
+			<p class="count">
+				<img class="mark" src="{base}/sunia-logo-white.png" alt="SUNIA" width="334" height="386" />
+				Question {step + 1} of {N_QUESTIONS}
+			</p>
 		</header>
 
 		<div class="stage">
@@ -154,11 +158,19 @@
 	}
 
 	.count {
+		display: flex;
+		align-items: center;
+		gap: 9px;
 		font-size: 18px;
 		letter-spacing: 0.06em;
 		text-transform: uppercase;
 		color: rgb(255 255 255 / 0.62);
 		margin: 0;
+	}
+
+	.mark {
+		width: auto;
+		height: 26px;
 	}
 
 	/* ---- the question --------------------------------------------- */

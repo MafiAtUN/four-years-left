@@ -1,8 +1,11 @@
 # Four Years Left
 
-A scrollytelling briefing on the UN Sustainable Development Goals, built in the style of the
-World Bank *Atlas of Global Development*. It is one page that works two ways: a deck driven
-from the keyboard at the podium, and an article someone can read on their own afterwards.
+A scrollytelling briefing on the UN Sustainable Development Goals, built for
+**[SUNIA](https://www.sunia.ca)** — the Seminar on the United Nations and International
+Affairs, a youth run summer camp near Bragg Creek, Alberta, where high school students spend a
+week around a model Security Council. It is written in the style of the World Bank *Atlas of
+Global Development*, and it is one page that works two ways: a deck driven from the keyboard at
+the front of the hall, and an article a camper can read on their own afterwards.
 
 **Live:** https://mafiatun.github.io/four-years-left/
 
@@ -20,7 +23,8 @@ npm run preview        # serve the production build
 
 The site makes **zero external network requests at runtime**. Fonts are self-hosted in
 `static/fonts`, and all data is imported from `static/data/*.json` at build time rather than
-fetched, so the whole briefing runs from localhost with the wifi off. The one exception is the
+fetched, so the whole briefing runs from localhost with the wifi off — which matters at a
+campsite. The one exception is the
 optional live quiz, which talks to the Firebase URL in `src/lib/quiz-config.js` and degrades
 silently to offline mode when that is empty or unreachable.
 

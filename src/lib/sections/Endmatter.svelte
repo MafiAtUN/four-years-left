@@ -2,6 +2,7 @@
 	import { base } from '$app/paths';
 	import Section from '$lib/components/Section.svelte';
 	import { stats } from '$lib/data';
+	import { SUNIA_URL } from '$lib/quiz-config.js';
 
 	const FILES = [
 		['world_index.json', 'World SDG Index by year, 2000 to 2025'],
@@ -21,10 +22,12 @@
 			<div>
 				<h2>About this briefing</h2>
 				<p>
-					This page was built for a briefing on the implementation and progress of the Sustainable
-					Development Goals, delivered at United Nations Headquarters to visiting students from
-					Emory, NYU and Columbia. It is a visualization of, and commentary on, a published
-					database. It is not a UN publication.
+					This page was built for <a class="host-link" href={SUNIA_URL}>SUNIA</a>, the Seminar on the
+					United Nations and International Affairs: a youth run summer camp near Bragg Creek,
+					Alberta, that has been bringing high school students together around a model Security
+					Council since 1952. It is a briefing on the implementation and progress of the Sustainable
+					Development Goals — the agenda those delegates are negotiating under. It is a
+					visualization of, and commentary on, a published database. It is not a UN publication.
 				</p>
 
 				<h3>What the SDG Index is, and is not</h3>
@@ -84,11 +87,21 @@
 			</div>
 		</div>
 
-		<p class="colophon">
-			Built by Mafizul Islam. Charts hand built in SvelteKit with d3 as a maths helper; no chart
-			library, no map tiles, no external requests at all, so the page runs offline. Type is Baloo 2
-			and Inter, self hosted. Design grammar follows the World Bank's Atlas of Global Development.
-		</p>
+		<div class="colophon">
+			<a class="host-mark" href={SUNIA_URL}>
+				<img src="{base}/sunia-logo-white.png" alt="SUNIA" width="334" height="386" />
+				<span>
+					<strong>SUNIA</strong>
+					<span class="host-tag">it's your world · sunia.ca</span>
+				</span>
+			</a>
+			<p>
+				Built by Mafizul Islam for SUNIA. Charts hand built in SvelteKit with d3 as a maths helper;
+				no chart library, no map tiles, no external requests at all, so the page runs offline. Type
+				is Baloo 2 and Inter, self hosted. Design grammar follows the World Bank's Atlas of Global
+				Development.
+			</p>
+		</div>
 	</div>
 </Section>
 
@@ -164,13 +177,64 @@
 		color: rgb(255 255 255 / 0.66);
 	}
 
+	.host-link {
+		color: var(--color-un-blue);
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.host-link:hover {
+		text-decoration: underline;
+	}
+
+	/* The camp signs off the page: mark on the left, colophon beside it. */
 	.colophon {
+		display: flex;
+		align-items: flex-start;
+		gap: clamp(20px, 3vw, 44px);
 		margin: 56px 0 0;
 		padding-top: 24px;
 		border-top: 1px solid rgb(255 255 255 / 0.18);
+	}
+
+	.colophon p {
 		font-size: var(--text-micro);
 		color: rgb(255 255 255 / 0.58);
 		max-width: 100ch;
+		margin: 0;
+	}
+
+	.host-mark {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex: 0 0 auto;
+		text-decoration: none;
+		color: #fff;
+	}
+
+	.host-mark img {
+		width: auto;
+		height: 56px;
+	}
+
+	.host-mark strong {
+		display: block;
+		font-family: var(--font-display);
+		font-size: var(--text-body);
+		letter-spacing: 0.1em;
+	}
+
+	.host-tag {
+		font-size: var(--text-micro);
+		color: rgb(255 255 255 / 0.55);
+	}
+
+	@media (max-width: 700px) {
+		.colophon {
+			flex-direction: column;
+			gap: 20px;
+		}
 	}
 
 	@media (max-width: 1000px) {

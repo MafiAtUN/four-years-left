@@ -1,5 +1,5 @@
 You are building a scrollytelling presentation website that I will present live at
-United Nations Headquarters TOMORROW at 12:30 to students from Emory, NYU and Columbia.
+SUNIA summer camp to high school campers preparing for a model Security Council.
 There is no second day. Perfection within the triage beats completeness.
 
 THE KIT (everything is in this directory):

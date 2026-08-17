@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import { base } from '$app/paths';
 	import { scaleLinear } from 'd3-scale';
 	import Section from '$lib/components/Section.svelte';
 	import { countries, fmt1 } from '$lib/data';
@@ -213,7 +214,12 @@
 		</div>
 
 		<div class="content" class:pushed={revealed}>
-			<p class="kicker">UN Briefing · Emory, NYU and Columbia visit</p>
+			<div class="host">
+				<img class="mark" src="{base}/sunia-logo-white.png" alt="SUNIA" width="334" height="386" />
+				<p class="kicker">
+					Seminar on the United Nations<br />and International Affairs
+				</p>
+			</div>
 			<h1>Four Years Left</h1>
 			<p class="standfirst">
 				In September 2015, 193 countries adopted 17 goals with a 2030 deadline. We are eleven years
@@ -235,7 +241,7 @@
 			</div>
 
 			<p class="byline">
-				Mafizul Islam · United Nations Headquarters, room GA1B33<br />
+				Mafizul Islam · SUNIA 2026, Bragg Creek, Alberta<br />
 				Data: Sustainable Development Report 2026 (Fuller, Iablonovski, Lafortune and Sachs)
 			</p>
 		</div>
@@ -285,13 +291,31 @@
 		max-width: min(560px, 32vw);
 	}
 
+	/* The camp's mark is the first thing on the title card, sized to sit beside
+	   two lines of its own name rather than float above them. */
+	.host {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		margin: 0 0 22px;
+	}
+
+	.mark {
+		width: auto;
+		height: clamp(56px, 6vw, 84px);
+		flex: 0 0 auto;
+		filter: drop-shadow(0 2px 18px rgb(11 27 63 / 0.8));
+	}
+
 	.kicker {
 		font-size: var(--text-small);
 		font-weight: 600;
 		letter-spacing: 0.14em;
+		line-height: 1.35;
 		text-transform: uppercase;
 		color: var(--color-un-blue);
-		margin: 0 0 18px;
+		margin: 0;
+		text-shadow: 0 2px 18px rgb(11 27 63 / 0.9);
 	}
 
 	h1 {

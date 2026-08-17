@@ -1,8 +1,17 @@
-# Four Years Left, UN SDG briefing site
+# Four Years Left, SDG briefing site for SUNIA
 
 Scrollytelling presentation site in the World Bank Atlas of Global Development style,
-built for a live UN briefing TOMORROW at 12:30. Deadline pressure is real: follow the
-triage in PLAN.md, must haves before should haves, and never spend the rehearsal hour.
+built for SUNIA (https://www.sunia.ca), the Seminar on the United Nations and International
+Affairs: a youth run, volunteer run summer camp near Bragg Creek, Alberta, running since 1952,
+where high school students spend a week around a model Security Council. Tagline: "it's your
+world". The audience is campers and counsellors, not academics, and never a university cohort:
+no reference to any university, campus, faculty or field of study belongs in the copy. Tie the
+framing to the camp and its Security Council instead.
+
+SUNIA branding: static/sunia-logo.png (navy on transparent, for light backgrounds),
+static/sunia-logo-white.png (for navy sections), static/favicon.png. SUNIA_URL lives in
+src/lib/quiz-config.js. The mark appears in the header, the hero, the endmatter and both quiz
+screens; keep it there when editing those files.
 
 ## The spec
 
@@ -18,7 +27,8 @@ the comparison system, and the hour by hour schedule. Follow it exactly.
   as math helpers only. No charting library. No Mapbox.
 - Base path: paths.base = process.env.BASE_PATH ?? '/four-years-left' (GitHub Pages project site).
 - ZERO external network requests at runtime. Fonts self hosted in static/fonts
-  (Baloo 2 for display, Inter for body). Site must work fully offline from localhost.
+  (Baloo 2 for display, Inter for body). Site must work fully offline from localhost,
+  which matters at a campsite. Links out to sunia.ca are fine; loading from it is not.
 - All data comes from static/data/*.json (already generated, do not modify).
   Never hard code a statistic: prose numbers come from derived_stats.json.
 - static/countries-110m.json is the world TopoJSON, static/name_map.json maps SDR

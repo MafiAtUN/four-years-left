@@ -125,12 +125,12 @@
 		<div class="closing">
 			<p>
 				The difference between the current path and the promised one is not knowledge, money or
-				technology. It is priorities, institutions and cooperation — the exact things your fields of
-				study exist to fix.
+				technology. It is priorities, institutions and cooperation — the exact things you have spent
+				this week practising in the Security Council.
 			</p>
 			<p class="small">
-				In 2030 most people in this room will be in the first years of their careers. The last mile
-				of these goals is your inheritance, not an abstraction.
+				In 2030 everyone in this room will be a voting adult. The last mile of these goals is your
+				inheritance, not an abstraction.
 			</p>
 		</div>
 	</div>

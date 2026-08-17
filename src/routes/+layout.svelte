@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>Four Years Left: The State of the World's Promises</title>
+	<title>Four Years Left: The State of the World's Promises · SUNIA</title>
 </svelte:head>
 
 {@render children()}

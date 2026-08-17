@@ -103,13 +103,14 @@
 </script>
 
 <svelte:head>
-	<title>Room results · Four Years Left</title>
+	<title>Room results · Four Years Left · SUNIA</title>
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
 <main>
 	<header>
 		<p class="where">
+			<img class="mark" src="{base}/sunia-logo-white.png" alt="SUNIA" width="334" height="386" />
 			Room results
 			{#if room.live}<span class="count tabular">· {room.count} answered</span>{/if}
 		</p>
@@ -190,12 +191,20 @@
 	}
 
 	.where {
+		display: flex;
+		align-items: center;
+		gap: 10px;
 		margin: 0;
 		font-size: var(--text-small);
 		font-weight: 600;
 		letter-spacing: 0.12em;
 		text-transform: uppercase;
 		color: rgb(255 255 255 / 0.6);
+	}
+
+	.mark {
+		width: auto;
+		height: 40px;
 	}
 
 	.count {

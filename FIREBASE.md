@@ -17,7 +17,10 @@
 >
 > Verified live: three phone submissions landed, the presenter counter and bars picked them
 > up inside one poll, shift+R twice wiped the database, and the reveal fell back to the
-> chimp benchmark. Rehearsal rows have been cleared; the database is empty.
+> chimp benchmark.
+>
+> **Wiped for SUNIA, 16 August 2026.** The nine rows left over from the previous run were
+> deleted with `DELETE /responses.json`; the database is empty and campers start from zero.
 
 The quiz works in three tiers. Tier one, live room results, needs this Firebase setup.
 Tier two needs nothing: phones score locally and the reveal shows correct answers with
@@ -45,9 +48,9 @@ Reset between rehearsal and the real briefing: DELETE {QUIZ_DB}/responses.json
 No names, no accounts, no cookies. The payload is five integers and a timestamp,
 which keeps the promise of full anonymity you will make from the podium.
 
-## Tomorrow morning checklist
+## Checklist on the day
 
 Open the database console tab so you can watch rows arrive during rehearsal.
-Submit one test response from your own phone on mobile data, not wifi,
-which also proves the room does not need the UN network for this to work.
-Press shift+R twice on the presenter page to clear test data before 12:30.
+Submit one test response from your own phone on mobile data, not wifi, which also proves the
+room does not need the campsite network for this to work. Press shift+R twice on the presenter
+page to clear test data before the campers walk in.
