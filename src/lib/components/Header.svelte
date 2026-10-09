@@ -15,6 +15,7 @@
 
 	<nav>
 		<a class="quiz-link" href="{base}/quiz/results">Quiz</a>
+		<a class="link" href="{base}/speaker/">Speaker</a>
 		<button
 			class="link"
 			onclick={() => motion.toggle()}
@@ -122,12 +123,23 @@
 	   link is an anchor into the endmatter, which scrolling reaches anyway. */
 	@media (max-width: 620px) {
 		header {
-			gap: 10px;
-			padding-inline: 14px;
+			gap: 8px;
+			padding-inline: 12px;
 		}
 
+		/* Quiz, Speaker and the motion toggle share the row with the title, so
+		   each keeps to one line and the spacing tightens to make room. */
 		nav {
-			gap: 12px;
+			gap: 6px;
+		}
+
+		.link {
+			white-space: nowrap;
+			padding-inline: 2px;
+		}
+
+		.quiz-link {
+			padding-inline: 11px;
 		}
 
 		nav :global(a[href$='#about']) {
