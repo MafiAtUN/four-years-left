@@ -35,6 +35,7 @@ silently to offline mode when that is empty or unreachable.
 | Scene | Section | What it does |
 | --- | --- | --- |
 | 0 | `/quiz/results` | The opening quiz: invitation with QR code, five reveals, room score |
+| — | `/speaker` | The speaker: role, record, certifications and a LinkedIn QR code; forward goes on to the hero |
 | 1 | `Hero`, `KeyFacts` | The promise, and where the headline numbers stand |
 | 2 | `PovertyVote` | The room guesses the direction of extreme poverty, then the truth draws in |
 | 3 | `Stall` | Where progress stopped |

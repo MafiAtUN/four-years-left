@@ -20,6 +20,11 @@ and every mention reads from HOST in src/lib/host.js. It appears in the header, 
 endmatter and both quiz screens; keep it there when editing those files. No outbound link to
 the host until an official URL is confirmed. static/favicon.png is a navy "4" tile.
 
+The opening runs quiz (/quiz/results), then the speaker (/speaker), then the briefing: Next on
+the quiz score goes to /speaker, and forward from /speaker goes to the hero. The speaker's
+facts live in src/lib/speaker.js, taken from the bio Mafizul supplied for the PGA81 staff directory;
+static/qr-linkedin.svg must encode SPEAKER.linkedin exactly.
+
 The home country is Italy (HOME in src/lib/tokens.js), drawn as a fixed reference on the
 Stall, Portraits and world map charts and first among the explorer chips.
 

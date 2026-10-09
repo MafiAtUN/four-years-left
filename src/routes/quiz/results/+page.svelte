@@ -1,6 +1,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
+	import { goto } from '$app/navigation';
 	import { HOST } from '$lib/host.js';
 	import { room } from '$lib/stores/quizroom.svelte.js';
 	import QuizInvite from '$lib/components/QuizInvite.svelte';
@@ -12,9 +13,8 @@
 	 * The quiz as its own screen.
 	 *
 	 * Same seven states as Scene 0 and the same components, but driven by
-	 * buttons as well as keys and ending in a door into the briefing rather than
-	 * a scroll into it. Use this when you want the quiz to be a separate act:
-	 * project it, run it, then click through to the main page and begin.
+	 * buttons as well as keys. The score hands over to the speaker's profile,
+	 * which hands over to the briefing: quiz, who is talking, then the talk.
 	 */
 
 	const LAST = N_QUESTIONS + 1;
@@ -30,7 +30,9 @@
 
 	const tally = $derived(room.tally);
 
-	const next = () => (step = Math.min(LAST, step + 1));
+	// Forward from the score is forward to the speaker, so the clicker never
+	// stalls at the end of the quiz.
+	const next = () => (step === LAST ? goto(`${base}/speaker/`) : (step += 1));
 	const prev = () => (step = Math.max(0, step - 1));
 
 	function onKeydown(e) {
@@ -136,7 +138,7 @@
 		{:else}
 			<div class="closing">
 				<QuizSummary {tally} live={room.live} />
-				<a class="start" href="{base}/">Start the briefing →</a>
+				<a class="start" href="{base}/speaker/">Next: your speaker →</a>
 			</div>
 		{/if}
 	</section>
@@ -157,7 +159,7 @@
 			{/each}
 		</div>
 
-		<button type="button" class="nav" onclick={next} disabled={step === LAST}>Next →</button>
+		<button type="button" class="nav" onclick={next}>Next →</button>
 	</footer>
 
 	{#if toast}
