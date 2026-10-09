@@ -56,6 +56,23 @@ export const PACE = {
 /** Comparison slot colors, in fixed order. */
 export const SLOT_COLORS = ['#8E44AD', '#00A6A6', '#D81B60'];
 
+/**
+ * The room is Italian, so Italy is drawn as a fixed reference wherever a
+ * chart names individual countries. Deep OECD blue: it separates from every
+ * rating color and from all three comparison slots, and it is the same blue as
+ * the OECD region line Italy sits inside.
+ */
+export const HOME = 'Italy';
+export const HOME_COLOR = '#1F4E79';
+
+/**
+ * Italy's pin on the world map. The map is a blue choropleth with no rating
+ * colors on it, so a red mark reads instantly as "you are here" and cannot be
+ * mistaken for a score. Deliberately not the dashboard red: this is a location
+ * marker, not a rating.
+ */
+export const HOME_DOT = '#C8102E';
+
 /** Official UN SDG palette, index 1 to 17. Index 0 is unused. */
 export const SDG = [
 	null,

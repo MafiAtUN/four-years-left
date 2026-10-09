@@ -2,21 +2,19 @@
 	import { base } from '$app/paths';
 	import { motion } from '$lib/stores/motion.svelte.js';
 	import { stops } from '$lib/stores/stops.svelte.js';
-	import { SUNIA_URL } from '$lib/quiz-config.js';
+	import { HOST } from '$lib/host.js';
 </script>
 
 <header>
 	<button class="brand" onclick={() => stops.toTop()}>
-		<img class="mark" src="{base}/sunia-logo.png" alt="" width="334" height="386" />
 		<span class="words">
-			<span class="host">SUNIA</span>
+			<span class="host">{HOST.programme}</span>
 			<span class="title">Four Years Left</span>
 		</span>
 	</button>
 
 	<nav>
 		<a class="quiz-link" href="{base}/quiz/results">Quiz</a>
-		<a class="link" href={SUNIA_URL} target="_blank" rel="noreferrer">sunia.ca</a>
 		<button
 			class="link"
 			onclick={() => motion.toggle()}
@@ -44,22 +42,20 @@
 		border-bottom: 1px solid var(--color-rule);
 	}
 
-	/* The camp's mark sits ahead of the talk's title, in that order: this is a
-	   SUNIA page first and a deck second. */
+	/* The programme's name sits above the talk's title, in that order: this is
+	   an Io Sono Futuro page first and a deck second. A UN blue bar stands in
+	   for a logo. */
 	.brand {
 		display: flex;
 		align-items: center;
 		gap: 10px;
+		border-left: 4px solid var(--color-un-blue);
+		padding-left: 10px;
 		text-align: left;
 		background: none;
 		border: 0;
 		cursor: pointer;
 		padding: 0;
-	}
-
-	.mark {
-		width: auto;
-		height: 34px;
 	}
 
 	.words {
@@ -72,7 +68,8 @@
 		font-family: var(--font-display);
 		font-weight: 700;
 		font-size: var(--text-micro);
-		letter-spacing: 0.16em;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
 		color: var(--color-ink-muted);
 	}
 
@@ -122,8 +119,7 @@
 	}
 
 	/* On a phone the bar has room for the title and one destination. The About
-	   link is an anchor into the endmatter, which scrolling reaches anyway, and
-	   sunia.ca is repeated in the endmatter too. */
+	   link is an anchor into the endmatter, which scrolling reaches anyway. */
 	@media (max-width: 620px) {
 		header {
 			gap: 10px;
@@ -134,12 +130,7 @@
 			gap: 12px;
 		}
 
-		.mark {
-			height: 28px;
-		}
-
-		nav :global(a[href$='#about']),
-		nav :global(a[href^='https://www.sunia.ca']) {
+		nav :global(a[href$='#about']) {
 			display: none;
 		}
 	}

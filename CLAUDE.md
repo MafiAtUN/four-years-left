@@ -1,17 +1,27 @@
-# Four Years Left, SDG briefing site for SUNIA
+# Four Years Left, SDG briefing site for Io Sono Futuro
 
 Scrollytelling presentation site in the World Bank Atlas of Global Development style,
-built for SUNIA (https://www.sunia.ca), the Seminar on the United Nations and International
-Affairs: a youth run, volunteer run summer camp near Bragg Creek, Alberta, running since 1952,
-where high school students spend a week around a model Security Council. Tagline: "it's your
-world". The audience is campers and counsellors, not academics, and never a university cohort:
-no reference to any university, campus, faculty or field of study belongs in the copy. Tie the
-framing to the camp and its Security Council instead.
+built for Io Sono Futuro – I Am The Future, the national programme of Fondazione Della Frera ETS
+that identifies and supports young Italian talent through education, innovation and international
+experiences (earlier editions went to Expo Dubai, Cybertech New York and Expo Osaka). The 2026
+edition's theme is the use of Artificial Intelligence to address emerging global challenges, and
+the New York mission is its final stage. Briefing topic: Artificial Intelligence, the Sustainable
+Development Goals and the UN 2030 Agenda.
 
-SUNIA branding: static/sunia-logo.png (navy on transparent, for light backgrounds),
-static/sunia-logo-white.png (for navy sections), static/favicon.png. SUNIA_URL lives in
-src/lib/quiz-config.js. The mark appears in the header, the hero, the endmatter and both quiz
-screens; keep it there when editing those files.
+The audience is Italian high school and university students selected for AI based project
+ideas, with their educators and Fondazione representatives. They want to see how their ideas
+can contribute to the SDGs and hear priorities, challenges and opportunities from a UN expert.
+Copy is in English; keep it plain for non native speakers. Tie the framing to their projects
+and to AI where it is honest to do so, never by inventing AI statistics: every number still
+comes from derived_stats.json.
+
+Host branding: there is no logo. The programme's name is set in type with a UN blue bar,
+and every mention reads from HOST in src/lib/host.js. It appears in the header, the hero, the
+endmatter and both quiz screens; keep it there when editing those files. No outbound link to
+the host until an official URL is confirmed. static/favicon.png is a navy "4" tile.
+
+The home country is Italy (HOME in src/lib/tokens.js), drawn as a fixed reference on the
+Stall, Portraits and world map charts and first among the explorer chips.
 
 ## The spec
 
@@ -28,7 +38,7 @@ the comparison system, and the hour by hour schedule. Follow it exactly.
 - Base path: paths.base = process.env.BASE_PATH ?? '/four-years-left' (GitHub Pages project site).
 - ZERO external network requests at runtime. Fonts self hosted in static/fonts
   (Baloo 2 for display, Inter for body). Site must work fully offline from localhost,
-  which matters at a campsite. Links out to sunia.ca are fine; loading from it is not.
+  which matters on untested venue wifi. Links out are fine; loading from them is not.
 - All data comes from static/data/*.json (already generated, do not modify).
   Never hard code a statistic: prose numbers come from derived_stats.json.
 - static/countries-110m.json is the world TopoJSON, static/name_map.json maps SDR

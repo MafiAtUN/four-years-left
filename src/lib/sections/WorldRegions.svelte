@@ -27,7 +27,9 @@
 		REGION_COLOR,
 		MICROSTATES,
 		RULE,
-		DASH
+		DASH,
+		HOME,
+		HOME_DOT
 	} from '$lib/tokens';
 
 	let index = $state(0);
@@ -59,8 +61,8 @@
 		return BLUE_RAMP[scoreBin(hit.score)];
 	}
 
-	/** Finland and South Sudan get called out at the two extremes. */
-	const callouts = ['Finland', 'South Sudan'];
+	/** Finland and South Sudan mark the two extremes; Italy is the room itself. */
+	const callouts = [HOME, 'Finland', 'South Sudan'];
 
 	/* ---------------- regional lines ---------------- */
 	const m = { top: 22, right: 262, bottom: 46, left: 54 };
@@ -163,13 +165,30 @@
 											{/if}
 										{/each}
 
+										<!-- Finland and South Sudan are ink pins at the two extremes.
+										     Italy is red, so the room finds itself on the map first. -->
 										{#each callouts as c}
 											{@const rec = countries[c]}
 											{@const f = land.find((l) => l.properties.name === (nameMap[c] ?? c))}
 											{#if f}
 												{@const cen = path.centroid(f)}
-												<circle cx={cen[0]} cy={cen[1]} r="4" fill="var(--color-ink)" />
-												<text class="map-label" x={cen[0] + 8} y={cen[1] - 6}>
+												{@const isHome = c === HOME}
+												<circle
+													cx={cen[0]}
+													cy={cen[1]}
+													r={isHome ? 6 : 4}
+													fill={isHome ? HOME_DOT : 'var(--color-ink)'}
+													stroke="#fff"
+													stroke-width={isHome ? 1.6 : 0}
+												/>
+												<!-- .map-label fills in CSS, which beats the attribute, so the
+												     red override has to be an inline style -->
+												<text
+													class="map-label"
+													x={cen[0] + (isHome ? 11 : 8)}
+													y={cen[1] - 6}
+													style={isHome ? `fill:${HOME_DOT}` : null}
+												>
 													{c} {fmt1(rec.score)}
 												</text>
 											{/if}
@@ -283,7 +302,8 @@
 					<!-- The pale end of the ramp is unreadable as text, so only the dark
 					     end is used as a caption highlight; the legend bar carries the rest. -->
 					Darker means a higher score. <Hl c={BLUE_RAMP[4]}>Finland leads at {fmt1(countries['Finland'].score)}</Hl>;
-					at the palest end, South Sudan is last at {fmt1(countries['South Sudan'].score)}.
+					{HOME} is {countries[HOME].rank}th at {fmt1(countries[HOME].score)}; at the palest end,
+					South Sudan is last at {fmt1(countries['South Sudan'].score)}.
 				{:else if i === 1}
 					Every region scores higher today than in 2000. Not one has gone backwards over the quarter
 					century.

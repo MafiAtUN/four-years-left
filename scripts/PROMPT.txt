@@ -1,5 +1,6 @@
 You are building a scrollytelling presentation website that I will present live at
-SUNIA summer camp to high school campers preparing for a model Security Council.
+the Io Sono Futuro New York mission to Italian high school and university students
+whose AI project ideas address the SDGs.
 There is no second day. Perfection within the triage beats completeness.
 
 THE KIT (everything is in this directory):

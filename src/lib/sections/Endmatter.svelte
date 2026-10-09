@@ -2,7 +2,7 @@
 	import { base } from '$app/paths';
 	import Section from '$lib/components/Section.svelte';
 	import { stats } from '$lib/data';
-	import { SUNIA_URL } from '$lib/quiz-config.js';
+	import { HOST } from '$lib/host.js';
 
 	const FILES = [
 		['world_index.json', 'World SDG Index by year, 2000 to 2025'],
@@ -22,11 +22,12 @@
 			<div>
 				<h2>About this briefing</h2>
 				<p>
-					This page was built for <a class="host-link" href={SUNIA_URL}>SUNIA</a>, the Seminar on the
-					United Nations and International Affairs: a youth run summer camp near Bragg Creek,
-					Alberta, that has been bringing high school students together around a model Security
-					Council since 1952. It is a briefing on the implementation and progress of the Sustainable
-					Development Goals — the agenda those delegates are negotiating under. It is a
+					This page was built for <strong class="host-name">{HOST.programme} – {HOST.english}</strong>,
+					the national programme of {HOST.org} that identifies and supports young Italian talent
+					through education, innovation and international experience. Its {HOST.occasion} mission
+					brings high school and university students whose AI based project ideas take on emerging
+					global challenges. This is a briefing on the implementation and progress of the
+					Sustainable Development Goals — the agenda those projects set out to serve. It is a
 					visualization of, and commentary on, a published database. It is not a UN publication.
 				</p>
 
@@ -88,15 +89,12 @@
 		</div>
 
 		<div class="colophon">
-			<a class="host-mark" href={SUNIA_URL}>
-				<img src="{base}/sunia-logo-white.png" alt="SUNIA" width="334" height="386" />
-				<span>
-					<strong>SUNIA</strong>
-					<span class="host-tag">it's your world · sunia.ca</span>
-				</span>
-			</a>
+			<div class="host-mark">
+				<strong>{HOST.programme}</strong>
+				<span class="host-tag">{HOST.english} · {HOST.org}</span>
+			</div>
 			<p>
-				Built by Mafizul Islam for SUNIA. Charts hand built in SvelteKit with d3 as a maths helper;
+				Built by Mafizul Islam for {HOST.programme}, {HOST.occasion}. Charts hand built in SvelteKit with d3 as a maths helper;
 				no chart library, no map tiles, no external requests at all, so the page runs offline. Type
 				is Baloo 2 and Inter, self hosted. Design grammar follows the World Bank's Atlas of Global
 				Development.
@@ -177,17 +175,11 @@
 		color: rgb(255 255 255 / 0.66);
 	}
 
-	.host-link {
-		color: var(--color-un-blue);
-		font-weight: 700;
-		text-decoration: none;
+	.host-name {
+		color: #fff;
 	}
 
-	.host-link:hover {
-		text-decoration: underline;
-	}
-
-	/* The camp signs off the page: mark on the left, colophon beside it. */
+	/* The programme signs off the page: its name on the left, colophon beside it. */
 	.colophon {
 		display: flex;
 		align-items: flex-start;
@@ -205,24 +197,17 @@
 	}
 
 	.host-mark {
-		display: flex;
-		align-items: center;
-		gap: 12px;
 		flex: 0 0 auto;
-		text-decoration: none;
+		border-left: 4px solid var(--color-un-blue);
+		padding-left: 14px;
 		color: #fff;
-	}
-
-	.host-mark img {
-		width: auto;
-		height: 56px;
 	}
 
 	.host-mark strong {
 		display: block;
 		font-family: var(--font-display);
 		font-size: var(--text-body);
-		letter-spacing: 0.1em;
+		letter-spacing: 0.02em;
 	}
 
 	.host-tag {

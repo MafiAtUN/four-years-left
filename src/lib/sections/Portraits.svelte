@@ -8,7 +8,7 @@
 	import GoalTiles from '$lib/components/GoalTiles.svelte';
 	import { ranks, countries, fmt1 } from '$lib/data';
 	import { compare } from '$lib/stores/compare.svelte.js';
-	import { DASH, RULE, SDG } from '$lib/tokens';
+	import { DASH, RULE, SDG, HOME, HOME_COLOR } from '$lib/tokens';
 
 	let index = $state(0);
 	let w = $state(900);
@@ -17,11 +17,13 @@
 	const CLIMBERS = ['India', 'Philippines', 'Benin', 'United Arab Emirates'];
 	const FALLERS = ['Lebanon', 'Argentina', 'Zimbabwe'];
 
-	// Which countries the current step lights up, and in what color.
+	// Which countries the current step lights up, and in what color. Italy is
+	// lit on every step: the room needs its own line on screen the whole way
+	// through, and its blue never means a rating.
 	const focusOf = $derived.by(() => {
-		if (index === 0) return { 'United States': 'var(--color-sdg-10)' };
-		if (index === 1) return { Bangladesh: 'var(--color-sdg-13)' };
-		const out = {};
+		const out = { [HOME]: HOME_COLOR };
+		if (index === 0) return { ...out, 'United States': 'var(--color-sdg-10)' };
+		if (index === 1) return { ...out, Bangladesh: 'var(--color-sdg-13)' };
 		for (const c of CLIMBERS) out[c] = DASH.g;
 		for (const c of FALLERS) out[c] = DASH.r;
 		return out;
@@ -54,6 +56,7 @@
 	const bd = countries['Bangladesh'];
 	const usRank = ranks.find((r) => r.c === 'United States');
 	const bdRank = ranks.find((r) => r.c === 'Bangladesh');
+	const homeRank = ranks.find((r) => r.c === HOME);
 	const usReds = us.dash.filter((d) => d === 'r').length;
 	const usGreens = us.dash.filter((d) => d === 'g').length;
 
@@ -76,7 +79,7 @@
 				<div class="chart-col">
 					<ChartFrame
 						title={titles[index]}
-						subtitle="Change in SDG Index rank, 2015 to 2025, all {ranks.length} ranked countries. Rank 1 is at the top."
+						subtitle="Change in SDG Index rank, 2015 to 2025, all {ranks.length} ranked countries. Rank 1 is at the top. {HOME} stays marked on every step."
 						accent={index === 2 ? DASH.g : index === 1 ? SDG[13] : SDG[10]}
 					>
 						<div class="plot" bind:clientWidth={w} bind:clientHeight={h}>
@@ -155,7 +158,11 @@
 					climate action while the United States is red. Low emitters bear the floods.
 				{:else}
 					<Hl c={DASH.g}>India, the Philippines, Benin and the UAE climbed</Hl> more than 17 places;
-					<Hl c={DASH.r}>Lebanon fell 25</Hl>. Policy moves countries up, crisis moves them down fast.
+					<Hl c={DASH.r}>Lebanon fell 25</Hl>. <Hl c={HOME_COLOR}
+						>{#if homeRank.r15 === homeRank.r25}{HOME} held {homeRank.r25}th{:else}{HOME} went
+							{homeRank.r15} to {homeRank.r25}{/if}</Hl
+					>: policy moves countries up, crisis moves them down fast, and staying put is its own
+					result.
 				{/if}
 			</CaptionCard>
 		{/snippet}

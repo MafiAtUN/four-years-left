@@ -125,12 +125,14 @@
 		<div class="closing">
 			<p>
 				The difference between the current path and the promised one is not knowledge, money or
-				technology. It is priorities, institutions and cooperation — the exact things you have spent
-				this week practising in the Security Council.
+				technology. It is priorities, institutions and cooperation — which is why an AI project
+				moves this line only if it reaches the people the goals were written for, and someone
+				answers for what it does.
 			</p>
 			<p class="small">
-				In 2030 everyone in this room will be a voting adult. The last mile of these goals is your
-				inheritance, not an abstraction.
+				In 2030 the youngest people in this room will be voting adults, and the oldest will be
+				building the companies and institutions that deliver the last mile. These goals are your
+				inheritance, and your projects are a first draft of what comes next.
 			</p>
 		</div>
 	</div>

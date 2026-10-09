@@ -19,8 +19,10 @@
 > up inside one poll, shift+R twice wiped the database, and the reveal fell back to the
 > chimp benchmark.
 >
-> **Wiped for SUNIA, 16 August 2026.** The nine rows left over from the previous run were
-> deleted with `DELETE /responses.json`; the database is empty and campers start from zero.
+> **Not yet wiped for Io Sono Futuro.** On 9 October 2026 the database still held 63 responses
+> from the previous session. Press shift+R twice on the presenter page (or send
+> `DELETE /responses.json`) before the students walk in, or their bars start from someone
+> else's answers.
 
 The quiz works in three tiers. Tier one, live room results, needs this Firebase setup.
 Tier two needs nothing: phones score locally and the reveal shows correct answers with
@@ -52,5 +54,5 @@ which keeps the promise of full anonymity you will make from the podium.
 
 Open the database console tab so you can watch rows arrive during rehearsal.
 Submit one test response from your own phone on mobile data, not wifi, which also proves the
-room does not need the campsite network for this to work. Press shift+R twice on the presenter
-page to clear test data before the campers walk in.
+room does not need the venue network for this to work. Press shift+R twice on the presenter
+page to clear test data before the students walk in.

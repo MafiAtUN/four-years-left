@@ -5,9 +5,9 @@
 	import CaptionCard from '$lib/components/CaptionCard.svelte';
 	import ChartFrame from '$lib/components/ChartFrame.svelte';
 	import Hl from '$lib/components/Hl.svelte';
-	import { worldIndex, stats, countryYears, fmt2 } from '$lib/data';
+	import { worldIndex, stats, countryYears, countries, fmt2 } from '$lib/data';
 	import { compare } from '$lib/stores/compare.svelte.js';
-	import { PACE, INK_MUTED, RULE } from '$lib/tokens';
+	import { PACE, INK_MUTED, RULE, HOME, HOME_COLOR } from '$lib/tokens';
 
 	let index = $state(0);
 	let w = $state(900);
@@ -47,6 +47,16 @@
 		}))
 	);
 
+	/**
+	 * Italy rides along with the world line so the room can see its own
+	 * trajectory against the global one. It steps aside when a student adds
+	 * Italy to the comparison set, so it is never drawn twice.
+	 */
+	const homePoints = countryYears
+		.map((y, i) => ({ x: y, y: countries[HOME].index[i] }))
+		.filter((p) => p.y != null);
+	const showHome = $derived(!compare.has(HOME));
+
 	// Right margin holds the direct end labels, including the longest
 	// comparison country name.
 	const margin = { top: 28, right: 170, bottom: 46, left: 56 };
@@ -54,10 +64,15 @@
 	const ih = $derived(Math.max(120, h - margin.top - margin.bottom));
 
 	// The specified domain is 55 to 75; it only ever widens, never narrows,
-	// so an overlaid country can never fall off the chart.
+	// so an overlaid country can never fall off the chart. Italy sits above 80,
+	// so the domain opens to 85 for it.
 	const yDomain = $derived.by(() => {
 		let lo = 55,
 			hi = 75;
+		for (const p of homePoints) {
+			lo = Math.min(lo, p.y);
+			hi = Math.max(hi, p.y);
+		}
 		for (const o of overlays) {
 			for (const p of o.points) {
 				lo = Math.min(lo, p.y);
@@ -101,7 +116,7 @@
 				<div class="chart-col">
 					<ChartFrame
 						title="Progress has not stopped. It has almost stalled."
-						subtitle="World SDG Index score, 0 to 100, 2000 to 2025. Line color shows how much the world gained each year."
+						subtitle="World SDG Index score, 0 to 100, 2000 to 2025. Line color shows how much the world gained each year. {HOME} is drawn alongside for scale."
 					>
 						<div class="plot" bind:clientWidth={w} bind:clientHeight={h}>
 							<svg width={w} height={h} role="img" aria-label="World SDG Index, 2000 to 2025">
@@ -149,6 +164,30 @@
 											style="transition:opacity 500ms ease"
 										/>
 									{/each}
+
+									<!-- the room's own country, always on, direct labeled -->
+									{#if showHome}
+										<path
+											d={linePath(homePoints)}
+											fill="none"
+											stroke={HOME_COLOR}
+											stroke-width="2.5"
+											opacity="0.95"
+										/>
+										<circle
+											cx={x(homePoints.at(-1).x)}
+											cy={y(homePoints.at(-1).y)}
+											r="4"
+											fill={HOME_COLOR}
+										/>
+										<text
+											class="overlay-label"
+											x={x(homePoints.at(-1).x) + 8}
+											y={y(homePoints.at(-1).y)}
+											dy="0.32em"
+											fill={HOME_COLOR}>{HOME}</text
+										>
+									{/if}
 
 									<!-- comparison overlays, thin, direct labeled at the end -->
 									{#each overlays as o}

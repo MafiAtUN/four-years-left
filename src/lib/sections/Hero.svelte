@@ -1,11 +1,11 @@
 <script>
 	import { onMount } from 'svelte';
-	import { base } from '$app/paths';
 	import { scaleLinear } from 'd3-scale';
 	import Section from '$lib/components/Section.svelte';
 	import { countries, fmt1 } from '$lib/data';
 	import { motion } from '$lib/stores/motion.svelte.js';
 	import { HERO_RAMP, scoreBin } from '$lib/tokens';
+	import { HOST } from '$lib/host.js';
 
 	/** One particle per ranked country. The decoration is the data all along. */
 	const list = Object.entries(countries).map(([name, rec]) => ({ name, score: rec.score }));
@@ -215,9 +215,9 @@
 
 		<div class="content" class:pushed={revealed}>
 			<div class="host">
-				<img class="mark" src="{base}/sunia-logo-white.png" alt="SUNIA" width="334" height="386" />
 				<p class="kicker">
-					Seminar on the United Nations<br />and International Affairs
+					<span>{HOST.programme}</span> · <span>{HOST.english}</span><br /><span>{HOST.org}</span>
+					· <span>{HOST.occasion}</span>
 				</p>
 			</div>
 			<h1>Four Years Left</h1>
@@ -241,7 +241,8 @@
 			</div>
 
 			<p class="byline">
-				Mafizul Islam · SUNIA 2026, Bragg Creek, Alberta<br />
+				Mafizul Islam · {HOST.programme}, {HOST.occasion}<br />
+				Artificial Intelligence, the Sustainable Development Goals and the 2030 Agenda<br />
 				Data: Sustainable Development Report 2026 (Fuller, Iablonovski, Lafortune and Sachs)
 			</p>
 		</div>
@@ -291,20 +292,12 @@
 		max-width: min(560px, 32vw);
 	}
 
-	/* The camp's mark is the first thing on the title card, sized to sit beside
-	   two lines of its own name rather than float above them. */
+	/* The programme's name is the first thing on the title card. It has no
+	   logo here, so a UN blue bar marks it as the host rather than a heading. */
 	.host {
-		display: flex;
-		align-items: center;
-		gap: 16px;
+		border-left: 4px solid var(--color-un-blue);
+		padding-left: 16px;
 		margin: 0 0 22px;
-	}
-
-	.mark {
-		width: auto;
-		height: clamp(56px, 6vw, 84px);
-		flex: 0 0 auto;
-		filter: drop-shadow(0 2px 18px rgb(11 27 63 / 0.8));
 	}
 
 	.kicker {
@@ -316,6 +309,11 @@
 		color: var(--color-un-blue);
 		margin: 0;
 		text-shadow: 0 2px 18px rgb(11 27 63 / 0.9);
+	}
+
+	/* A phone wraps the kicker between names, never inside one. */
+	.kicker span {
+		white-space: nowrap;
 	}
 
 	h1 {
@@ -399,6 +397,12 @@
 		   The toggle brings every word straight back. */
 		.pushed {
 			max-width: none;
+		}
+
+		/* The byline runs to three lines on a phone; keep it clear of the
+		   scroll cue pinned to the bottom of the hero. */
+		.content {
+			padding-bottom: 104px;
 		}
 
 		.pushed .standfirst,

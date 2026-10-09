@@ -14,10 +14,13 @@
 		fmt1
 	} from '$lib/data';
 	import { compare } from '$lib/stores/compare.svelte.js';
-	import { RULE, UN_BLUE, DASH, textSafe } from '$lib/tokens';
+	import { RULE, UN_BLUE, DASH, textSafe, HOME } from '$lib/tokens';
 
-	/** The five countries that star in the story, preloaded as one click chips. */
-	const CHIPS = ['United States', 'Bangladesh', 'India', 'Lebanon', 'Finland'];
+	/**
+	 * The countries that star in the story, preloaded as one click chips.
+	 * Italy leads: it is the first one an Italian room reaches for.
+	 */
+	const CHIPS = [HOME, 'United States', 'Bangladesh', 'India', 'Lebanon', 'Finland'];
 
 	let selected = $state('Bangladesh');
 	let w = $state(800);
@@ -71,8 +74,9 @@
 				<p class="eyebrow">The explorer</p>
 				<h2>Look up any country.</h2>
 				<p class="sub">
-					Every ranked country, its score, its trajectory and all 17 goals. Add up to three
-					countries to the comparison set and they appear here side by side.
+					Every ranked country, its score, its trajectory and all 17 goals. Start with the country
+					your project is built for, then add up to three to the comparison set and they appear
+					here side by side.
 				</p>
 			</div>
 			<div class="search">

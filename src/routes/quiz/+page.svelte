@@ -1,6 +1,6 @@
 <script>
 	import { onDestroy } from 'svelte';
-	import { base } from '$app/paths';
+	import { HOST } from '$lib/host.js';
 	import { QUESTIONS, N_QUESTIONS, QUIZ_META, scoreOf, submitResponse } from '$lib/quiz.js';
 
 	/**
@@ -57,7 +57,7 @@
 </script>
 
 <svelte:head>
-	<title>Five questions · Four Years Left · SUNIA</title>
+	<title>Five questions · Four Years Left · Io Sono Futuro</title>
 	<meta name="theme-color" content="#0B1B3F" />
 	<meta name="robots" content="noindex" />
 </svelte:head>
@@ -71,7 +71,7 @@
 				{/each}
 			</div>
 			<p class="count">
-				<img class="mark" src="{base}/sunia-logo-white.png" alt="SUNIA" width="334" height="386" />
+				<span class="mark">{HOST.programme}</span>
 				Question {step + 1} of {N_QUESTIONS}
 			</p>
 		</header>
@@ -168,9 +168,15 @@
 		margin: 0;
 	}
 
+	/* The programme's name in type, with the same UN blue bar it carries on
+	   the briefing, in place of a logo. */
 	.mark {
-		width: auto;
-		height: 26px;
+		font-family: var(--font-display);
+		font-weight: 800;
+		letter-spacing: 0.04em;
+		color: #fff;
+		border-left: 3px solid var(--color-un-blue);
+		padding-left: 9px;
 	}
 
 	/* ---- the question --------------------------------------------- */

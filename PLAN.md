@@ -1,9 +1,9 @@
 # Four Years Left
-## The story for your SUNIA camp lecture and the complete plan for an Atlas style github.io page
+## The story for the Io Sono Futuro briefing and the complete plan for an Atlas style github.io page
 
 Prepared for: Mafi
-Occasion: Briefing 1, Implementation and progress of the SDGs, one hour, SUNIA summer camp, Bragg Creek, Alberta
-Audience: SUNIA campers and counsellors, high school age, preparing for the camp's model Security Council
+Occasion: Briefing on Artificial Intelligence, the Sustainable Development Goals and the UN 2030 Agenda, Io Sono Futuro – I Am The Future (Fondazione Della Frera ETS), New York mission 2026
+Audience: Italian high school and university students selected for AI based project ideas on emerging global challenges, with their educators and representatives of Fondazione Della Frera
 Data source: SDG Index database, Sustainable Development Report 2026 (Fuller, Iablonovski, Lafortune and Sachs), license CC BY NC ND 4.0
 Delivery vehicle: a scrollytelling website in the style of the World Bank Atlas of Global Development, hosted on GitHub Pages, driven live from the podium
 Timeline: the briefing is tomorrow. Part B therefore includes a one day build schedule with a strict must, should, could triage, and the production data files have already been generated for you (sdg-data-package.zip contains prepare_data.py plus all eight JSON files, verified against this document).
@@ -16,7 +16,7 @@ Every number in this document was computed directly from your uploaded database.
 
 ## The thesis in one sentence
 
-In 2015 the world made 17 promises with a 2030 deadline. The world is still moving forward, and the last 25 years prove transformation is possible, but progress has slowed to nearly a standstill exactly when it needed to accelerate, and what happens in the four years left is a choice, one that this generation of campers will inherit.
+In 2015 the world made 17 promises with a 2030 deadline. The world is still moving forward, and the last 25 years prove transformation is possible, but progress has slowed to nearly a standstill exactly when it needed to accelerate, and what happens in the four years left is a choice, one that this generation of young innovators will inherit.
 
 ## Why this framing wins the room
 
@@ -76,7 +76,7 @@ The number: zero countries on track for all 17 goals.
 On screen: Finland's 17 goal tiles, greens first, then the camera shifts to its reds. A quiet, effective ending to the data narrative.
 
 ### Scene 9. Four years, then the floor
-Message: At the current pace the world index reaches about 70.5 by 2030, far from where the 2015 curve was pointing. Close with the choice framing: the difference between the current path and the promised one is not knowledge, money or technology. It is priorities, institutions and cooperation, the exact things you have spent this week practising in the Security Council. Then open the explorer and hand the room the data.
+Message: At the current pace the world index reaches about 70.5 by 2030, far from where the 2015 curve was pointing. Close with the choice framing: the difference between the current path and the promised one is not knowledge, money or technology. It is priorities, institutions and cooperation, which is why an AI project moves the line only if it reaches the people the goals were written for and someone answers for what it does. Then open the explorer and hand the room the data.
 On screen: the projection cone to 2030, then the country explorer for Q&A.
 
 ## Run of show, 12:30 to 13:30
@@ -130,7 +130,7 @@ The site must behave like a deck when you are at the podium and like an article 
 
 Each of the nine scenes is a full viewport page. Between scenes the page scrolls normally, but a global keyboard handler turns the whole story into a linear sequence of stops: every scene boundary and every scrolly step registers itself as a stop in order, and the right arrow, space bar or page down key smooth scrolls to the next stop while the left arrow and page up go back. Because svelte-scroller states are a pure function of scroll position, driving the scroll drives the story, and the same page works untouched for a scrolling reader. Number keys 1 through 9 jump straight to a scene, the home key returns to the hero, F toggles fullscreen, and B fades the screen to the navy background for moments when you want eyes on you rather than the screen. A slim progress rail of nine dots sits on the right edge showing where you are, clickable as an escape hatch if you need to jump during Q&A.
 
-Projection rules, because the camp hall has a distant screen: base body text at least 20 px, caption cards 22 px, chart tick labels at least 16 px, nothing on screen ever below 14 px, headline numbers hundreds of pixels tall. One point per stop, cards never longer than two sentences, and every scrolly state must stand alone as a complete labeled chart because you will pause on states while talking. Test the whole run at 1920 by 1080.
+Projection rules, because the room has a distant screen: base body text at least 20 px, caption cards 22 px, chart tick labels at least 16 px, nothing on screen ever below 14 px, headline numbers hundreds of pixels tall. One point per stop, cards never longer than two sentences, and every scrolly state must stand alone as a complete labeled chart because you will pause on states while talking. Test the whole run at 1920 by 1080.
 
 Presenter safety: the entire site runs offline from localhost with self hosted fonts, so the UN guest wifi cannot hurt you. Rehearse from localhost, present from the live URL if the room network cooperates.
 
@@ -152,7 +152,7 @@ Section 0, header. Minimal. Title left, reduced motion toggle and About link rig
 
 Section 00, the opening quiz system. Two pieces sharing quiz_questions.json. Piece one, the phone page at /quiz: mobile first, one question per screen, three huge tap targets, a progress dot row, no names and no login, and after question five a local score screen (You got 3 of 5. Look up at the big screen.) that also tells them to put the phone away. Piece two, scene zero of the presentation: a full navy page with the pre generated QR code (static/qr-quiz.svg, already pointing at the live /quiz URL), the line Answer from your head, not from Google, fully anonymous, and a live counter of responses received. Pressing the advance key walks the reveal: for each question, horizontal bars of the room's answer shares animate in, the correct option turns green, the others grey, with a dashed chimp line at 33 percent and the fact plus source beneath. Results flow through a free Firebase Realtime Database via plain REST (setup in FIREBASE.md, ten minutes), and the page degrades automatically: if the database is unreachable the reveal shows correct answers and the chimp benchmark without room bars, and the ultimate fallback is hands up voting on the same screens. The database holds only five integers and a timestamp per submission, keeping the anonymity promise literal. After the last question a summary screen shows the room's average score against the chimp's 33 percent, then hands off to the hero.
 
-Section 1, hero (Scene 1). Navy full viewport. SUNIA mark and the camp's full name as the kicker. Title Four Years Left. Standfirst of two sentences. Byline: your name and role, data credit to SDR 2026. The what is shown here, reveal data toggle morphs 169 particles into a beeswarm by index score with a 0 to 100 axis, Finland and South Sudan labeled at the extremes. Scroll cue at bottom.
+Section 1, hero (Scene 1). Navy full viewport. The programme's name (Io Sono Futuro · I Am The Future, Fondazione Della Frera · New York 2026) as the kicker, set in type with a UN blue bar; there is no logo. Title Four Years Left. Standfirst of two sentences. Byline: your name and role, data credit to SDR 2026. The what is shown here, reveal data toggle morphs 169 particles into a beeswarm by index score with a 0 to 100 axis, Finland and South Sudan labeled at the extremes. Scroll cue at bottom.
 
 Section 2, key facts strip. Four stat cards: 9.3 percent extreme poverty today, 0.02 index points gained last year, 7 percent of goal ratings green, 4 years to 2030.
 
@@ -244,7 +244,7 @@ Working with Claude Code tomorrow: open the session by handing it this whole doc
 
 ## Perfection checklist before the briefing
 
-Fact check: every on screen number matches derived_stats.json, which matches the appendix below. Rehearse the full scroll twice with a timer, marking where 13:05 must find you. Test on the room setup: the camp hall has PowerPoint style projection, so verify at 1920 by 1080 and have the localhost fallback on your laptop. Type Bangladesh, Nigeria, China, Brazil and Mexico into the explorer beforehand so live requests hold no surprises. Load the site on a phone for the QR moment if you choose to share it at the close. Confirm attribution wording against the SDR 2026 citation requirement.
+Fact check: every on screen number matches derived_stats.json, which matches the appendix below. Rehearse the full scroll twice with a timer, marking where 13:05 must find you. Test on the room setup: the venue has PowerPoint style projection, so verify at 1920 by 1080 and have the localhost fallback on your laptop. Type Bangladesh, Nigeria, China, Brazil and Mexico into the explorer beforehand so live requests hold no surprises. Load the site on a phone for the QR moment if you choose to share it at the close. Confirm attribution wording against the SDR 2026 citation requirement.
 
 ---
 

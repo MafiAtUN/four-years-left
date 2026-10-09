@@ -19,9 +19,6 @@ export const QUIZ_DB = 'https://four-years-left-sdg-default-rtdb.firebaseio.com'
  */
 export const QUIZ_URL = 'https://mafiatun.github.io/four-years-left/quiz';
 
-/** The camp this briefing was built for. Linked from the header and endmatter. */
-export const SUNIA_URL = 'https://www.sunia.ca';
-
 /** Presenter poll interval while Scene 0 is on screen. */
 export const POLL_MS = 2000;
 

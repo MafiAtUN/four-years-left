@@ -1,6 +1,7 @@
 <script>
 	import { onMount, onDestroy } from 'svelte';
 	import { base } from '$app/paths';
+	import { HOST } from '$lib/host.js';
 	import { room } from '$lib/stores/quizroom.svelte.js';
 	import QuizInvite from '$lib/components/QuizInvite.svelte';
 	import QuizReveal from '$lib/components/QuizReveal.svelte';
@@ -103,14 +104,14 @@
 </script>
 
 <svelte:head>
-	<title>Room results · Four Years Left · SUNIA</title>
+	<title>Room results · Four Years Left · Io Sono Futuro</title>
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
 <main>
 	<header>
 		<p class="where">
-			<img class="mark" src="{base}/sunia-logo-white.png" alt="SUNIA" width="334" height="386" />
+			<span class="mark">{HOST.programme}</span>
 			Room results
 			{#if room.live}<span class="count tabular">· {room.count} answered</span>{/if}
 		</p>
@@ -202,9 +203,15 @@
 		color: rgb(255 255 255 / 0.6);
 	}
 
+	/* The programme's name in type, with the same UN blue bar it carries on
+	   the briefing, in place of a logo. */
 	.mark {
-		width: auto;
-		height: 40px;
+		font-family: var(--font-display);
+		font-weight: 800;
+		color: #fff;
+		border-left: 4px solid var(--color-un-blue);
+		padding-left: 12px;
+		margin-right: 6px;
 	}
 
 	.count {
