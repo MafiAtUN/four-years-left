@@ -1,41 +1,62 @@
 # Four Years Left
 
-A scrollytelling briefing on the UN Sustainable Development Goals, built for
-**Io Sono Futuro – I Am The Future**, the national programme of Fondazione Della Frera ETS that
-brings young Italian talent to international stages. Its 2026 New York mission brings Italian
-high school and university students whose AI based project ideas take on emerging global
-challenges; this briefing shows them where the 2030 Agenda actually stands, so they can see where
-their ideas fit. It is written in the style of the World Bank *Atlas of Global Development*, and
-it is one page that works two ways: a deck driven from the keyboard at the front of the room, and
-an article a student can read on their own afterwards.
+A scrollytelling briefing on **Artificial Intelligence, the Sustainable Development Goals and the
+UN 2030 Agenda**, built for **Io Sono Futuro – I Am The Future**, the national programme of
+Fondazione Della Frera ETS that identifies and supports young Italian talent. Its 2026 New York
+mission brings Italian high school and university students whose AI based project ideas take on
+emerging global challenges. This briefing shows them where the 2030 Agenda actually stands, so
+they can see where their ideas fit.
 
-**Live:** https://mafiatun.github.io/four-years-left/
+It is written in the style of the World Bank *Atlas of Global Development*, and it is one page
+that works two ways: a deck driven from the keyboard at the front of the room, and an article a
+student can read on their own afterwards.
+
+**Live:** <https://mafiatun.github.io/four-years-left/>
 
 `PLAN.md` is the specification — every section, the design system, the presentation layer and
 the comparison system are defined there. `FIREBASE.md` covers the live quiz database.
+
+## Running order on the day
+
+The opening is three screens, each handing over to the next with the same forward key.
+
+1. **The quiz** — [/quiz/results/](https://mafiatun.github.io/four-years-left/quiz/results/).
+   Project it, let the room scan the QR code, walk the five reveals, land on the room's score.
+2. **The speaker** — [/speaker/](https://mafiatun.github.io/four-years-left/speaker/).
+   Next on the quiz score lands here: Mafizul Islam, Senior Adviser (Data, AI and Strategic
+   Foresight), Office of the President of the UN General Assembly, 81st session, with a record,
+   certifications and a LinkedIn QR code.
+3. **The briefing** — [the main page](https://mafiatun.github.io/four-years-left/), from the
+   hero through the nine scenes below.
+
+Quiz and Speaker are also in the header of the main page, so either is one click away during
+Q&A. Before the students walk in, press `Shift+R` twice on the quiz screen to clear any answers
+left over from rehearsal.
 
 ## Running it
 
 ```bash
 npm install
-npm run dev            # http://localhost:5173/four-years-left/
-npm run build          # static site into build/
-npm run preview        # serve the production build
+npm run dev                         # http://localhost:5173/four-years-left/
+npm run build                       # static site into build/
+npm run preview                     # serve the production build
+node scripts/verify-numbers.mjs     # every on screen figure against derived_stats.json
+node scripts/shot.mjs out.png "/#stall" 2.5   # screenshot any scroll position (needs preview running)
 ```
 
 The site makes **zero external network requests at runtime**. Fonts are self-hosted in
-`static/fonts`, and all data is imported from `static/data/*.json` at build time rather than
-fetched, so the whole briefing runs from localhost with the wifi off — which matters on venue
-wifi you have never tested. The one exception is the
-optional live quiz, which talks to the Firebase URL in `src/lib/quiz-config.js` and degrades
-silently to offline mode when that is empty or unreachable.
+`static/fonts`, the speaker's photo and both QR codes are in `static/`, and all data is imported
+from `static/data/*.json` at build time rather than fetched, so the whole briefing runs from
+localhost with the wifi off — which matters on venue wifi you have never tested. The one
+exception is the optional live quiz, which talks to the Firebase URL in
+`src/lib/quiz-config.js` and degrades silently to offline mode when that is empty or unreachable.
 
 ## The briefing
 
 | Scene | Section | What it does |
 | --- | --- | --- |
 | 0 | `/quiz/results` | The opening quiz: invitation with QR code, five reveals, room score |
-| — | `/speaker` | The speaker: role, record, certifications and a LinkedIn QR code; forward goes on to the hero |
+| — | `/speaker` | Who is talking: role, record, certifications and a LinkedIn QR code |
 | 1 | `Hero`, `KeyFacts` | The promise, and where the headline numbers stand |
 | 2 | `PovertyVote` | The room guesses the direction of extreme poverty, then the truth draws in |
 | 3 | `Stall` | Where progress stopped |
@@ -44,10 +65,15 @@ silently to offline mode when that is empty or unreachable.
 | 6 | `WorldRegions` | The geography of progress |
 | 7 | `Portraits` | Three countries close up |
 | 8 | `Finland` | Nobody has finished |
-| 9 | `Projection`, `Explorer`, `Endmatter` | Four years, then the floor |
+| 9 | `Projection`, `Explorer`, `Endmatter` | Four years, then the floor — and where an AI project fits |
 
 Sections live in [src/lib/sections/](src/lib/sections/) and are composed in
 [src/routes/+page.svelte](src/routes/+page.svelte).
+
+**Italy is the room's reference line.** The room is Italian, so Italy is drawn alongside the world
+on the Stall chart, stays marked on every Portraits step, is pinned on the world map and leads the
+explorer's country chips. Change it in one place: `HOME` in
+[src/lib/tokens.js](src/lib/tokens.js).
 
 ## Presenting
 
@@ -68,6 +94,9 @@ between stops, and the article and the deck can never disagree.
 | `F` | Fullscreen |
 | `?` | Key help |
 | `Esc` | Close help, unblank |
+
+On the speaker screen, forward starts the briefing, back returns to the quiz score, `0` goes to
+the quiz and `F` toggles fullscreen.
 
 A progress rail on the right edge shows where you are in the hour and doubles as an escape
 hatch during Q&A. Reduced motion is honoured from `prefers-reduced-motion` and from a manual
@@ -90,7 +119,7 @@ A Gapminder-style opener. Phones answer at `/quiz`, the room's answers are revea
 - **Presenter page** — invitation with the QR code and a live "N answered so far" counter,
   then one reveal per question: horizontal bars of the room's distribution, the correct option
   in green, a dashed chimp line at 33 percent, and the fact with its source. Ends on the
-  room's average against 33 percent.
+  room's average against 33 percent, and Next from there goes to the speaker.
 - **Transport** — REST only, no Firebase SDK. `POST {QUIZ_DB}/responses.json` to submit,
   polled every 2s while the quiz is on screen, tallied client side. `Shift+R` twice within two
   seconds clears the database between runs.
@@ -99,7 +128,22 @@ A Gapminder-style opener. Phones answer at `/quiz`, the room's answers are revea
   bars. No error ever surfaces on screen.
 
 Set the database URL in [src/lib/quiz-config.js](src/lib/quiz-config.js); `FIREBASE.md` has the
-setup and the security rules.
+setup, the security rules and the log of when the database was last cleared.
+
+## Host and speaker
+
+The host's names — programme, English title, foundation, occasion — live in
+[src/lib/host.js](src/lib/host.js) and appear in the header, hero, endmatter and both quiz
+screens. There is no logo: the programme's name is set in type beside a UN blue bar.
+
+The speaker's facts live in [src/lib/speaker.js](src/lib/speaker.js), taken from the bio supplied
+for the PGA81 staff directory on 15 September 2026. Edit wording there, never in the page.
+`static/qr-linkedin.svg` must encode `SPEAKER.linkedin` exactly; if the address changes,
+regenerate it with the same settings as the quiz QR code:
+
+```bash
+python3 -c "import segno; segno.make('https://www.linkedin.com/in/mafizul/', error='m').save('static/qr-linkedin.svg', scale=10, dark='#0b1b3f', border=2)"
+```
 
 ## Stack
 
